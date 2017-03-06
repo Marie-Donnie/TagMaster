@@ -1,0 +1,38 @@
+%%Scénario 1 : Tag un fichier "blop.txt" avec le tag "test" %%
+-Ouvrir application
+-Passer en mode gestion de fichier
+-Recherche du fichier blop.txt par nom
+-Séléction du tag "test" de la liste de tag
+-Ajouter le tag au fichier
+
+
+%%Scénario 2 : tag un fichier floc.pdf avec le tag "rapport" et "pdf" %%
+-Ouvrir application
+-Passer en mode gestion de fichier
+-Recherche du fichier avec son emplacement
+-Ajout du "rapport" et "pdf" au fichier
+-Manger un sandwich
+
+%%Scénario 3 : rajout de plusieur tag différent sur des fichier différent %%
+%% But : voir si c'est pratique de tag plusieur fichier différent à la suite %%
+-Ouvrir aplication
+-Passer mode gestion de fichier
+-Recherche du fichier "plop1.txt" par son nom
+-Rajout du tag "rapport" au fichier "plop1.txt"
+-Recherche du fichier "plop2.txt" par son nom
+-Rajout du tag "danceTraditionel" au fichier "plop2.txt"
+-Recherche du fichier "plop3.txt" par son nom
+-Rajout du tag "kebab" au fichier "plop3.txt"
+
+
+%% Scénario 4 : rajout du tag "saucisse" au fichier "plop.txt" et "bratwurst.jpg"
+%%But : test le mode multi-séléction
+-Ouvrir aplication 
+-Passer mode gestion de fichier
+-Passer mode multi séléction
+-Recherche du fichier "plop1.txt" par son nom
+-Le rajouter à la séléction
+-Recherche du fichier "bratwurst.jpg" par son nom
+-Le rajouter à la séléction
+-Séléction du tag "saucisse" de la liste de tag
+-Ajouter le tag au fichiers
