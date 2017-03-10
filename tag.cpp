@@ -1,6 +1,6 @@
 #include "file.h"
 #include "tag.h"
-
+#include <iostream>
 
 Tag::Tag(){
     this->_count=0;
@@ -35,4 +35,21 @@ void Tag::setFiles(std::vector<File *> &files){
 
 void Tag::incrementCount(int files){
     this->_count+=files;
+}
+
+bool Tag::getFile(std::string fileName, File &file){
+    bool found=false;
+    int i=0;
+    this->_files.at(i);
+    while ((i < this->_files.size())&&(!found) ){
+      if (this->_files.at(i)->getFileName()==fileName){
+          file=*(this->_files.at(i));
+          found=true;
+        }else{
+            ++i;
+        }
+    ++i;
+    }
+    return found;
+
 }

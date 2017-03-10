@@ -30,7 +30,7 @@ public:
     void incrementCount(int files);
     void decrementCount(int files);
 
-    bool getFile(std::string fileName, File* file);
+    bool getFile(std::string fileName, File  & file);
 };
 
 
