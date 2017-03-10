@@ -2,11 +2,15 @@
 #include "tag.h"
 #include <iostream>
 
+
+//-----------Constructor------------
 Tag::Tag(){
     this->_count=0;
     this->_files= std::vector<File*>();
     this->_tagName = "default";
 }
+
+//-----------Getter And Setter------------
 
 std::string Tag::getTagName(){
     return this->_tagName;
@@ -33,10 +37,16 @@ void Tag::setFiles(std::vector<File *> &files){
     this->_files=files;
 }
 
+//-----------Fonction------------
+
+//Incrémente le compteur du nombre de de fichier du tag
 void Tag::incrementCount(int files){
     this->_count+=files;
 }
 
+
+//Return met dans "file" le ficher d'on on a saisie le nom
+//Return false si le fichier n'est pas trouver et true sinon
 bool Tag::getFile(std::string fileName, File &file){
     bool found=false;
     int i=0;
@@ -52,4 +62,9 @@ bool Tag::getFile(std::string fileName, File &file){
     }
     return found;
 
+}
+
+//Rajoute un fichier au tag
+void Tag::addFile(File *file){
+    this->_files.push_back(file);
 }

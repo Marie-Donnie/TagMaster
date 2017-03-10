@@ -31,6 +31,7 @@ public:
     void decrementCount(int files);
 
     bool getFile(std::string fileName, File  & file);
+    void addFile(File *file);
 };
 
 
