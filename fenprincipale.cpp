@@ -33,8 +33,8 @@ FenPrincipale::FenPrincipale()
     QLineEdit* creeTag = new QLineEdit();
     QLineEdit* rechercheFile = new QLineEdit();
 
-    creeTag->setText("Crée tag");
-    rechercheFile->setText("Rechercher");
+    creeTag->setPlaceholderText("Crée tag");
+    rechercheFile->setPlaceholderText("Rechercher");
 
     creeTag->setToolTip("Appuyer sur entrer pour crée le tag");
     rechercheFile->setToolTip("Appuyer sur entrer pour valider");
