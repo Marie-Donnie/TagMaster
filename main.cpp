@@ -4,6 +4,7 @@
 #include "file.cpp"
 #include <iostream>
 #include "fenprincipale.h"
+#include "sessionActuel.cpp"
 
 using namespace std;
 int main(int argc, char *argv[])
@@ -20,7 +21,9 @@ int main(int argc, char *argv[])
 
     //------TESTING SECTION--------
 
-    Tag t = Tag();
+    SessionActuel sessionActuel;
+
+   /* Tag t = Tag();
     File file= File();
     File file2;
     vector<File*> Vf= vector<File*>();
@@ -34,6 +37,10 @@ int main(int argc, char *argv[])
     t.getFile("test",file2);
     cout<<"The name of the file is "<<file2.getFileName()<<endl;
     cout<<"The name that was to bre found is "<<file.getFileName()<<endl;
+    */
+    sessionActuel.addTag("test");
+
+    cout<<"Name du tag : "<<sessionActuel.getTags().at(0)->getTagName()<<endl;
 
     //---END TESTING SECTION---------
 

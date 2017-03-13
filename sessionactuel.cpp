@@ -1,0 +1,70 @@
+#include "sessionActuel.h"
+
+//-----------Constructor------------
+
+SessionActuel::SessionActuel()
+{
+    this->_files= std::vector<File*>();
+    this->_tags = std::vector<Tag*>();
+    this->_filesCurrent= std::vector<File*>();
+    this->_tagsCurrent = std::vector<Tag*>();
+
+}
+
+//-----------Getter And Setter------------
+std::vector<File*>& SessionActuel::getFiles(){
+    return this->_files;
+}
+
+std::vector<Tag*> SessionActuel::getTags(){
+    return this->_tags;
+}
+
+std::vector<File*>& SessionActuel::getFilesCurrent(){
+    return this->_filesCurrent;
+}
+
+std::vector<Tag*> SessionActuel::getTagsCurrent(){
+    return this->_tagsCurrent;
+}
+
+void SessionActuel::setFiles(std::vector<File *> &files){
+    this->_files=files;
+}
+
+void SessionActuel::setTags(std::vector<Tag *> &tags){
+    this->_tags=tags;
+}
+
+void SessionActuel::setFilesCurrent(std::vector<File *> &files){
+    this->_filesCurrent=files;
+}
+
+void SessionActuel::setTagsCurrent(std::vector<Tag *> &tags){
+    this->_tagsCurrent=tags;
+}
+
+//-----------Fonctions------------
+
+bool SessionActuel::addTag(std::string tagName){
+    bool pasTrouver=true;
+    int i=0;
+
+    while((i<this->_tags.size())&&(!pasTrouver)){
+        if(this->_tags.at(i)->getTagName()==tagName){
+            pasTrouver=false;
+        }else{
+            ++i;
+        }
+    }
+
+    if(pasTrouver){
+        Tag* tag = new Tag();
+        tag->setTagName(tagName);
+        this->_tags.push_back(tag);
+    }
+
+    return pasTrouver;
+}
+
+
