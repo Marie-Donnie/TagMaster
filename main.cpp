@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
     cout<<"The name of the file is "<<file2.getFileName()<<endl;
     cout<<"The name that was to bre found is "<<file.getFileName()<<endl;
 
+    file2.addTag(&t);
+
     sessionActuel.addTag("test");
 
     cout<<"Name du tag : "<<sessionActuel.getTags().at(0)->getTagName()<<endl;

@@ -42,5 +42,15 @@ void File::setTags(std::vector<Tag *> &tags){
 
 //Rajoute un tag au fichier
 void File::addTag(Tag *tag){
+    int i=0;
+    bool pasTrouver = true;
+    while ((i<this->_tags.size())&&(pasTrouver)){
+        if(this->_tags.at(i)->getTagName()==tag->getTagName()){
+            // Tags ont le même nom = même tag
+            pasTrouver=false;
+        }else{
+            ++i;
+        }
+    }
     this->_tags.push_back(tag);
 }
