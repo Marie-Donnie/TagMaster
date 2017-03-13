@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     tag.cpp \
-    file.cpp
+    file.cpp \
+    fenprincipale.cpp
 
 HEADERS  += mainwindow.h \
     tag.h \
-    file.h
+    file.h \
+    fenprincipale.h
 
 FORMS    += mainwindow.ui

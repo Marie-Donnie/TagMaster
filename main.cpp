@@ -3,14 +3,18 @@
 #include "tag.cpp"
 #include "file.cpp"
 #include <iostream>
+#include "fenprincipale.h"
 
 using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+   // MainWindow w;
+    //w.show();
 
+
+    FenPrincipale f;
+    f.show();
 
 
 
