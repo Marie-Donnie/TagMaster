@@ -65,7 +65,7 @@ bool Tag::getFile(std::string fileName, File &file){
 }
 
 //Rajoute un fichier au tag seulement le fichier n'a pas déjà ce tag
-void Tag::addFile(File *file){
+bool Tag::addFile(File *file){
     int i=0;
     bool pasTrouver = true;
     while ((i<this->_files.size())&&(pasTrouver)){
@@ -80,4 +80,5 @@ void Tag::addFile(File *file){
     if(pasTrouver){
         this->_files.push_back(file);
     }
+    return pasTrouver;
 }

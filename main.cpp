@@ -41,8 +41,10 @@ int main(int argc, char *argv[])
     file2.addTag(&t);
 
     sessionActuel.addTag("test");
+    sessionActuel.addFile("testFile","/test");
 
     cout<<"Name du tag : "<<sessionActuel.getTags().at(0)->getTagName()<<endl;
+    cout<<"Name du file : "<<sessionActuel.getFiles().at(0)->getFileName()<<endl;
 
     //---END TESTING SECTION---------
 

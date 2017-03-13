@@ -46,6 +46,7 @@ void SessionActuel::setTagsCurrent(std::vector<Tag *> &tags){
 
 //-----------Fonctions------------
 
+
 bool SessionActuel::addTag(std::string tagName){
     bool pasTrouver=true;
     int i=0;
@@ -67,4 +68,27 @@ bool SessionActuel::addTag(std::string tagName){
     return pasTrouver;
 }
 
+
+bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
+    bool pasTrouver=true;
+    int i=0;
+
+    while((i<this->_files.size())&&(!pasTrouver)){
+        if((this->_files.at(i)->getFileName()==fileName)&&
+                (this->_files.at(i)->getFileAdress()==fileAdress)){
+            pasTrouver=false;
+        }else{
+            ++i;
+        }
+    }
+
+    if(pasTrouver){
+        File* file= new File();
+        file->setFileName(fileName);
+        file->setFileAdress(fileAdress);
+        this->_files.push_back(file);
+    }
+
+    return pasTrouver;
+}
 

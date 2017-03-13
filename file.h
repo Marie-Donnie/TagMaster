@@ -29,7 +29,7 @@ public:
     void setFileAdress(std::string fileAdress);
     void setTags(std::vector<Tag*>& tags);
 
-    void addTag(Tag* tag);
+    bool addTag(Tag* tag);
 
 };
 
