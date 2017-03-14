@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     SessionActuel sessionActuel;
 
     Tag t = Tag();
+    Tag t2;
     File file= File();
     File file2;
     vector<File*> Vf= vector<File*>();
@@ -37,6 +38,15 @@ int main(int argc, char *argv[])
     t.getFile("test",file2);
     cout<<"The name of the file is "<<file2.getFileName()<<endl;
     cout<<"The name that was to bre found is "<<file.getFileName()<<endl;
+    file2.setFileName("sdfsd");
+
+    vector<File*> Vf2 = vector<File*>();
+    Vf2.push_back(&file);
+    Vf2.push_back(&file2);
+
+    t2.addFile(&Vf2);
+
+    cout<<"Nb de file dans t2 attendut est 2 on a : "<<t2.getFiles().size()<<endl;
 
     file2.addTag(&t);
 

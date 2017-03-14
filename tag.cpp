@@ -82,3 +82,9 @@ bool Tag::addFile(File *file){
     }
     return pasTrouver;
 }
+
+void Tag::addFile(std::vector<File *> *files){
+    for (int i=0;i<files->size();++i){
+        this->addFile(files->at(i));
+    }
+}

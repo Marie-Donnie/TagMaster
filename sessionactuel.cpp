@@ -92,3 +92,18 @@ bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
     return pasTrouver;
 }
 
+//TODO = amélioré la compléxité
+/*void SessionActuel::lieTagsFiles(std::vector<File *> files, std::vector<_Tp1> tags){
+
+    for(int i=0;i<files.size();++i){
+        for (int j=0;j<this->_files.size();++j){
+
+                if((this->_files.at(j)->getFileName()==files.at(i)->getFileName())&&
+                        (this->_files.at(j)->getFileAdress()==files.at(i)->getFileAdress())){
+
+
+                }
+        }
+    }
+}
+*/

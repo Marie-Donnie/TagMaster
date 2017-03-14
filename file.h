@@ -30,6 +30,7 @@ public:
     void setTags(std::vector<Tag*>& tags);
 
     bool addTag(Tag* tag);
+    void addTag(std::vector<Tag*> tags);// Rajout plusieur tag en même temps
 
 };
 

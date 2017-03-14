@@ -32,6 +32,7 @@ public:
 
     bool getFile(std::string fileName, File  & file);
     bool addFile(File *file);
+    void addFile(std::vector<File*> *files);//Rajout plusieur fichier en même temps
 };
 
 
