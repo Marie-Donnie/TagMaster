@@ -92,6 +92,7 @@ bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
     return pasTrouver;
 }
 
+
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){
         this->_filesCurrent.at(i)->addTag(&this->_tagsCurrent);

@@ -55,3 +55,10 @@ bool File::addTag(Tag *tag){
     if(pasTrouver)this->_tags.push_back(tag);
     return pasTrouver;
 }
+
+//Rajoute plusieur tag au fichier
+void File::addTag(std::vector<Tag *> *tags){
+    for (int i=0;i<tags->size();++i){
+        this->addTag(tags->at(i));
+    }
+}
