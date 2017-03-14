@@ -11,6 +11,12 @@ File::File(){
     this->_tags = std::vector<Tag*>();
 }
 
+File::File(std::string name, std::string adress){
+    this->_fileName=name;
+    this->_fileAdress=adress;
+    this->_tags = std::vector<Tag*>();
+}
+
 //-----------Getter And Setter------------
 
 std::string File::getFileName(){

@@ -53,9 +53,16 @@ int main(int argc, char *argv[])
 
     sessionActuel.addTag("test");
     sessionActuel.addFile("testFile","/test");
+    sessionActuel.addFileToCurrent("testFile","/test");
+    sessionActuel.addFileToCurrent("test2File","/test2");
+    sessionActuel.addTagToCurrent("test");
+
 
     cout<<"Name du tag : "<<sessionActuel.getTags().at(0)->getTagName()<<endl;
     cout<<"Name du file : "<<sessionActuel.getFiles().at(0)->getFileName()<<endl;
+    cout<<"Nb file Current attendut 2 trouver :"<<sessionActuel.getFilesCurrent().size()<<endl;
+    cout<<"Nb tag Current attendut  trouver :"<<sessionActuel.getTagsCurrent().size()<<endl;
+
 
     //---END TESTING SECTION---------
 

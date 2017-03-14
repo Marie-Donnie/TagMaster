@@ -27,10 +27,17 @@ public:
     void setFilesCurrent(std::vector<File*>& files);
     void setTagsCurrent(std::vector<Tag*>& tags);
 
+    // Return false si le tag existe déjà
+    bool addTag(std::string tagName);
+    // Return false si le file existe déjà
+    bool addFile(std::string fileName, std::string fileAdress);
+    // Rajoute un file aux current files
+    void addFileToCurrent(std::string fileName,std::string filePath);
+    //Rajoute un au tag current, suppose que le tag est déjà dans la liste
+    void addTagToCurrent(std::string tagName);
+    //Enlève un tag de la liste de tag
+    void removeTag(std::string tagName);
 
-    bool addTag(std::string tagName); // Return false si le tag existe déjà
-    bool addFile(std::string fileName, std::string fileAdress);// Return false si le file existe déjà
-    void addFileToCurrent();
     void lieTagFile();// Rajoute les tagsCurrent aux filesCurrent
 
 

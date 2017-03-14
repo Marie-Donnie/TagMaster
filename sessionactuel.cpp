@@ -46,7 +46,7 @@ void SessionActuel::setTagsCurrent(std::vector<Tag *> &tags){
 
 //-----------Fonctions------------
 
-
+// Rajoute un file  à la liste
 bool SessionActuel::addTag(std::string tagName){
     bool pasTrouver=true;
     int i=0;
@@ -68,7 +68,7 @@ bool SessionActuel::addTag(std::string tagName){
     return pasTrouver;
 }
 
-
+//Rajoute un file à la liste
 bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
     bool pasTrouver=true;
     int i=0;
@@ -90,6 +90,54 @@ bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
     }
 
     return pasTrouver;
+}
+
+
+// Rajoute un file aux current files
+void SessionActuel::addFileToCurrent(std::string fileName, std::string filePath){
+    File * file= new File(fileName,filePath);
+    bool pasTrouver=true;
+    int i=0;
+    while((i<this->_files.size())&&(pasTrouver)){
+        if(file->egal(this->_files.at(i))){
+            pasTrouver=false;
+            //Le file existe déjà dans notre liste on le prend et on le rajoute au current
+            this->_filesCurrent.push_back(this->_files.at(i));
+        }else{
+            ++i;
+        }
+    }
+    if(!pasTrouver){
+       //Le file n'était pas encore dans notre liste de file :
+       //on rajoute celui qu'on vient de  crée au current
+       this->_filesCurrent.push_back(file);
+    }
+}
+
+//Rajoute un au tag current, suppose que le tag est déjà dans la liste
+void SessionActuel::addTagToCurrent(std::string tagName){
+    int i=0;
+    bool trouver=false;
+
+    //i-> normalement on dépasse pas du vector mais par sécurié on vérifie
+    while((i<this->_tags.size())&&(!trouver)){
+        if(this->_tags.at(i)->getTagName()==tagName){
+            this->_tagsCurrent.push_back(this->_tags.at(i));
+            trouver=true;
+        }else{
+            ++i;
+        }
+    }
+}
+
+//Enlève un tag de la liste de tag
+void SessionActuel::removeTag(std::string tagName){
+    this->_tagsCurrent.clear();//Par sécurité pour éviter d'avoir un tag supprimé encore dans les currents
+    for(int i=0;i<this->_tags.size();++i){
+        if(this->_tags.at(i)->getTagName()==tagName){
+            this->_tags.erase(this->_tags.begin()+i);
+        }
+    }
 }
 
 // Rajoute les tagsCurrent aux filesCurrent

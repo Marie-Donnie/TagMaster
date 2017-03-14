@@ -10,6 +10,12 @@ Tag::Tag(){
     this->_tagName = "default";
 }
 
+Tag::Tag(std::string tagName){
+    this->_count=0;
+    this->_files= std::vector<File*>();
+    this->_tagName = tagName;
+}
+
 //-----------Getter And Setter------------
 
 std::string Tag::getTagName(){
@@ -78,6 +84,7 @@ bool Tag::addFile(File *file){
     }
     if(pasTrouver){
         this->_files.push_back(file);
+        this->_count+=1;
     }
     return pasTrouver;
 }

@@ -20,6 +20,7 @@ private:
 public:
 
     File();
+    File(std::string name, std::string adress);
 
     std::string getFileName();
     std::string getFileAdress();
