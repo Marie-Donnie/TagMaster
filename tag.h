@@ -12,25 +12,26 @@ class File;
 class Tag {
 private:
     std::string _tagName;
-    std::vector<File> _files;
+    std::vector<File*> _files;
     int _count;
 
 public:
     Tag();
+    Tag(std::string tagName);
     //Getters
     std::string getTagName();
-    std::vector<File>& getFiles();
+    std::vector<File*>& getFiles();
     int getCount();
-
 
     //Setters
     void setTagName(std::string tagName);
-    void setFiles(std::vector<File>& files);
+    void setFiles(std::vector<File*>& files);
     void setCount(int count);
     void incrementCount(int files);
     void decrementCount(int files);
 
-    bool getFile(std::string fileName, File file);
+    bool getFile(std::string fileName, File  & file);
+    bool addFile(File *file);
 };
 
 

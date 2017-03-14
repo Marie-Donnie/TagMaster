@@ -15,9 +15,21 @@ class File{
 private:
     std::string _fileName;
     std::string _fileAdress;
-    std::vector<Tag> _tags;
+    std::vector<Tag*> _tags;
 
 public:
+
+    File();
+
+    std::string getFileName();
+    std::string getFileAdress();
+    std::vector<Tag*> getTags();
+
+    void setFileName(std::string fileName);
+    void setFileAdress(std::string fileAdress);
+    void setTags(std::vector<Tag*>& tags);
+
+    bool addTag(Tag* tag);
 
 };
 
