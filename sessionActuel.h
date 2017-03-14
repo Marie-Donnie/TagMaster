@@ -30,6 +30,7 @@ public:
 
     bool addTag(std::string tagName); // Return false si le tag existe déjà
     bool addFile(std::string fileName, std::string fileAdress);// Return false si le file existe déjà
+    void addFileToCurrent();
     void lieTagFile();// Rajoute les tagsCurrent aux filesCurrent
 
 

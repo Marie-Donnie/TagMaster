@@ -31,6 +31,7 @@ public:
 
     bool addTag(Tag* tag);
     void addTag(std::vector<Tag*> *tags);// Rajout plusieur tag en même temps
+    bool egal(File* file); // Même path = même file
 
 };
 

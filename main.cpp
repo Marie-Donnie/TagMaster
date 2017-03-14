@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
     cout<<"The name of the file is "<<file2.getFileName()<<endl;
     cout<<"The name that was to bre found is "<<file.getFileName()<<endl;
     file2.setFileName("sdfsd");
+    file2.setFileAdress("/test/"+file2.getFileName());
 
     vector<File*> Vf2 = vector<File*>();
     Vf2.push_back(&file);

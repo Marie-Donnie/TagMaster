@@ -45,7 +45,7 @@ bool File::addTag(Tag *tag){
     int i=0;
     bool pasTrouver = true;
     while ((i<this->_tags.size())&&(pasTrouver)){
-        if(this->_tags.at(i)->getTagName()==tag->getTagName()){
+        if(this->_tags.at(i)->egal(tag)){
             // Tags ont le même nom = même tag
             pasTrouver=false;
         }else{
@@ -61,4 +61,9 @@ void File::addTag(std::vector<Tag *> *tags){
     for (int i=0;i<tags->size();++i){
         this->addTag(tags->at(i));
     }
+}
+
+//
+bool File::egal(File *file){
+    return this->_fileAdress==file->getFileAdress();
 }

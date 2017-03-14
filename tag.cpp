@@ -69,8 +69,7 @@ bool Tag::addFile(File *file){
     int i=0;
     bool pasTrouver = true;
     while ((i<this->_files.size())&&(pasTrouver)){
-        if((this->_files.at(i)->getFileName()==file->getFileName())&&
-                (this->_files.at(i)->getFileAdress()==file->getFileAdress())){
+        if(this->_files.at(i)->egal(file)){
             // File même nom + même path = même file
             pasTrouver=false;
         }else{
@@ -88,4 +87,9 @@ void Tag::addFile(std::vector<File *> *files){
     for (int i=0;i<files->size();++i){
         this->addFile(files->at(i));
     }
+}
+
+//
+bool Tag::egal(Tag *tag){
+    return this->_tagName==tag->getTagName();
 }
