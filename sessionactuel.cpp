@@ -140,6 +140,16 @@ void SessionActuel::removeTag(std::string tagName){
     }
 }
 
+//Clear tag current
+void SessionActuel::clearTagsCurrent(){
+    this->_tagsCurrent.clear();
+}
+
+//Clear file current
+void SessionActuel::clearFilesCurrent(){
+    this->_filesCurrent.clear();
+}
+
 // Rajoute les tagsCurrent aux filesCurrent
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){

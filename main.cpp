@@ -62,6 +62,8 @@ int main(int argc, char *argv[])
     cout<<"Name du file : "<<sessionActuel.getFiles().at(0)->getFileName()<<endl;
     cout<<"Nb file Current attendut 2 trouver :"<<sessionActuel.getFilesCurrent().size()<<endl;
     cout<<"Nb tag Current attendut  trouver :"<<sessionActuel.getTagsCurrent().size()<<endl;
+    sessionActuel.clearFilesCurrent();
+    cout<<"Et maintenent on veut un 0 : "<<sessionActuel.getFilesCurrent().size()<<endl;
 
 
     //---END TESTING SECTION---------

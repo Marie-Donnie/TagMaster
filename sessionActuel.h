@@ -37,6 +37,10 @@ public:
     void addTagToCurrent(std::string tagName);
     //Enlève un tag de la liste de tag
     void removeTag(std::string tagName);
+    //Clear tag current
+    void clearTagsCurrent();
+    //Clear file current
+    void clearFilesCurrent();
 
     void lieTagFile();// Rajoute les tagsCurrent aux filesCurrent
 
