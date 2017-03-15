@@ -50,7 +50,7 @@ void SessionActuel::setTagsCurrent(std::vector<Tag *> &tags){
 bool SessionActuel::addTag(std::string tagName){
     bool pasTrouver=true;
     int i=0;
-
+    std::cout<<"hello"<<std::endl;
     while((i<this->_tags.size())&&(!pasTrouver)){
         if(this->_tags.at(i)->getTagName()==tagName){
             pasTrouver=false;

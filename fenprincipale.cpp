@@ -2,36 +2,39 @@
 
 FenPrincipale::FenPrincipale()
 {
-    QWidget *zoneCentrale = new QWidget;
+    this->_session= new SessionActuel();
+    zoneCentrale = new QWidget;
 
    // Les 2 liste du mode simple séléction
-    QTableView* viewL = new QTableView();
-    QTreeView* viewRH = new QTreeView();
-    QTableView* viewRB = new QTableView();
+    viewL = new QTableView();
+    viewRH = new QTreeView();
+    viewRB = new QTableView();
 
     // Le model qui sert d'explorateur de fichier
-    QDirModel *modele = new QDirModel;
+    modele = new QDirModel;
         viewRH->setModel(modele);
 
      // Initialisation des bouton
-    QPushButton *modeTag= new QPushButton("Mode Gestion des Tags");
-    QPushButton *mostUse= new QPushButton("Les plus utilisés");
-    QPushButton *ordreLexico= new QPushButton("Ordre Lexicographique");
-    QPushButton *ajouter= new QPushButton("Ajouter Tag(s)");
-    QPushButton *associateFile = new QPushButton("Fichiers associé au tag");
-    QPushButton *multiSelection= new QPushButton("Mode Multi Séléction");
+    modeTag= new QPushButton("Mode Gestion des Tags");
+    mostUse= new QPushButton("Les plus utilisés");
+    ordreLexico= new QPushButton("Ordre Lexicographique");
+    ajouter= new QPushButton("Ajouter Tag(s)");
+    associateFile = new QPushButton("Fichiers associé au tag");
+    multiSelection= new QPushButton("Mode Multi Séléction");
+
+
 
     modeTag->setToolTip("Mode pour géré vos Tags");
     mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");
-    ordreLexico->setToolTip("Trie les tags par ordre l'exicographique");
+    ordreLexico->setToolTip("Trie les tags par ordre lexicographique");
     ajouter->setToolTip("Ajoute Tag(s) séléctioné au fichier séléctioné");
     associateFile->setToolTip("Montre les fichiers associés au tag");
     multiSelection->setToolTip("Mode pour ajouter des Tags à plusieur fichier en même temps");
 
 
     //Initialisation des lineEdit
-    QLineEdit* creeTag = new QLineEdit();
-    QLineEdit* rechercheFile = new QLineEdit();
+    creeTag = new QLineEdit();
+    rechercheFile = new QLineEdit();
 
     creeTag->setPlaceholderText("Crée tag");
     rechercheFile->setPlaceholderText("Rechercher");
@@ -39,12 +42,15 @@ FenPrincipale::FenPrincipale()
     creeTag->setToolTip("Appuyer sur entrer pour crée le tag");
     rechercheFile->setToolTip("Appuyer sur entrer pour valider");
 
+    //QObject::connect(creeTag,SIGNAL(QLineEdit::returnPressed()),qApp,SLOT(this->_session->addTag()));
+
+
     // Creation des layout du mode simple séléction
-    QGridLayout *layout = new QGridLayout;
-    QGridLayout *layoutLeft= new QGridLayout;
-    QGridLayout *layoutRight= new QGridLayout;
-    QGridLayout *layoutCentral = new QGridLayout; // Bloc avec Ajouter Tag(s)
-    QGridLayout *layoutCentral2= new QGridLayout;// Bloc avec Mode multi Séléction
+    layout = new QGridLayout;
+    layoutLeft= new QGridLayout;
+    layoutRight= new QGridLayout;
+    layoutCentral = new QGridLayout; // Bloc avec Ajouter Tag(s)
+    layoutCentral2= new QGridLayout;// Bloc avec Mode multi Séléction
 
 
 
@@ -65,6 +71,7 @@ FenPrincipale::FenPrincipale()
     // Remplissage du layout centrale 2
     layoutCentral2->addWidget(multiSelection,0,0);
 
+
     // Remplissage du layout principale
     layout->addWidget(creeTag,0,0);
     layout-> addWidget(modeTag,0,1);
@@ -81,4 +88,15 @@ FenPrincipale::FenPrincipale()
 
     //Zone central devient la zone central du widget
     setCentralWidget(zoneCentrale);
+}
+
+
+// -----Getter and Setter---------
+
+SessionActuel *FenPrincipale::getSession(){
+    return this->_session;
+}
+
+void FenPrincipale::setSession(SessionActuel *session){
+    this->_session=session;
 }
