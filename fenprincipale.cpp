@@ -12,7 +12,9 @@ FenPrincipale::FenPrincipale()
 
     // Le model qui sert d'explorateur de fichier
     modele = new QDirModel;
-        viewRH->setModel(modele);
+    modeleTag = new QStandardItemModel();
+    viewRH->setModel(modele);
+    viewL->setModel(modeleTag);
 
      // Initialisation des bouton
     modeTag= new QPushButton("Mode Gestion des Tags");
@@ -21,6 +23,8 @@ FenPrincipale::FenPrincipale()
     ajouter= new QPushButton("Ajouter Tag(s)");
     associateFile = new QPushButton("Fichiers associé au tag");
     multiSelection= new QPushButton("Mode Multi Séléction");
+
+    QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(test()));
 
 
 
@@ -42,7 +46,7 @@ FenPrincipale::FenPrincipale()
     creeTag->setToolTip("Appuyer sur entrer pour crée le tag");
     rechercheFile->setToolTip("Appuyer sur entrer pour valider");
 
-    //QObject::connect(creeTag,SIGNAL(QLineEdit::returnPressed()),qApp,SLOT(this->_session->addTag()));
+    QObject::connect(creeTag,SIGNAL(returnPressed()),this,SLOT(addTag()));
 
 
     // Creation des layout du mode simple séléction
@@ -84,10 +88,10 @@ FenPrincipale::FenPrincipale()
 
 
     //Définition du layout comme zone central
-    zoneCentrale->setLayout(layout);
+     zoneCentrale->setLayout(layout);
 
-    //Zone central devient la zone central du widget
-    setCentralWidget(zoneCentrale);
+      //Zone central devient la zone central du widget
+      setCentralWidget(zoneCentrale);
 }
 
 
@@ -99,4 +103,30 @@ SessionActuel *FenPrincipale::getSession(){
 
 void FenPrincipale::setSession(SessionActuel *session){
     this->_session=session;
+}
+
+//------Slots fonctions------
+
+void FenPrincipale::addTag(){
+
+    std::string tagName = creeTag->text().toStdString();
+    if(this->_session->addTag(tagName)){
+        Tag* tag = this->_session->getTagByName(tagName);
+        QStandardItem* item = new QStandardItem(1,2);
+        QStandardItem* itemName= new QStandardItem(QString::fromStdString(tag->getTagName()));
+        QStandardItem* itemCount= new QStandardItem(QString::number(tag->getCount()));
+        std::cout<<"le count attendut est 0 : "<<itemCount<<std::endl;
+        QList<QStandardItem*> list = QList<QStandardItem*>();
+        list.push_back(itemName);
+        list.push_back(itemCount);
+        modeleTag->appendRow(list);
+
+
+    }
+    creeTag->clear();
+}
+
+void FenPrincipale::test(){
+    this->rechercheFile->setText("sd");
+
 }

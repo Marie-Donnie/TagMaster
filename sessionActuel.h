@@ -41,6 +41,8 @@ public:
     void clearTagsCurrent();
     //Clear file current
     void clearFilesCurrent();
+    //Get  tag by his name
+    Tag* getTagByName(std::string tagName);
 
     void lieTagFile();// Rajoute les tagsCurrent aux filesCurrent
 

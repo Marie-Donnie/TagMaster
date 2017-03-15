@@ -50,10 +50,10 @@ void SessionActuel::setTagsCurrent(std::vector<Tag *> &tags){
 bool SessionActuel::addTag(std::string tagName){
     bool pasTrouver=true;
     int i=0;
-    std::cout<<"hello"<<std::endl;
-    while((i<this->_tags.size())&&(!pasTrouver)){
+    while((i<this->_tags.size())&&(pasTrouver)){
         if(this->_tags.at(i)->getTagName()==tagName){
             pasTrouver=false;
+
         }else{
             ++i;
         }
@@ -64,7 +64,6 @@ bool SessionActuel::addTag(std::string tagName){
         tag->setTagName(tagName);
         this->_tags.push_back(tag);
     }
-
     return pasTrouver;
 }
 
@@ -73,7 +72,7 @@ bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
     bool pasTrouver=true;
     int i=0;
 
-    while((i<this->_files.size())&&(!pasTrouver)){
+    while((i<this->_files.size())&&(pasTrouver)){
         if((this->_files.at(i)->getFileName()==fileName)&&
                 (this->_files.at(i)->getFileAdress()==fileAdress)){
             pasTrouver=false;
@@ -148,6 +147,23 @@ void SessionActuel::clearTagsCurrent(){
 //Clear file current
 void SessionActuel::clearFilesCurrent(){
     this->_filesCurrent.clear();
+}
+
+//Get  tag by his name
+Tag* SessionActuel::getTagByName(std::string tagName){
+    bool trouver=false;
+    int i=0;
+    Tag* t = new Tag(tagName);
+    while((i<this->_tags.size())&&(!trouver)){
+        if(this->_tags.at(i)->egal(t)){
+            t=this->_tags.at(i);
+            trouver=true;
+
+        }else{
+            ++i;
+        }
+    }
+    return t;
 }
 
 // Rajoute les tagsCurrent aux filesCurrent
