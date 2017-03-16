@@ -106,10 +106,11 @@ void SessionActuel::addFileToCurrent(std::string fileName, std::string filePath)
             ++i;
         }
     }
-    if(!pasTrouver){
+    if(pasTrouver){
        //Le file n'était pas encore dans notre liste de file :
        //on rajoute celui qu'on vient de  crée au current
        this->_filesCurrent.push_back(file);
+       this->_files.push_back(file);
     }
 }
 
@@ -166,6 +167,22 @@ Tag* SessionActuel::getTagByName(std::string tagName){
     return t;
 }
 
+File* SessionActuel::getFileByPath(std::string filePath){
+    bool trouver=false;
+    int i=0;
+
+    File *f = new File("temporaire",filePath);
+    while((i<this->_files.size())&&(!trouver)){
+        if(this->_files.at(i)->egal(f)){
+            f=this->_files.at(i);
+            trouver=true;
+        }else{
+            ++i;
+        }
+    }
+    return f;
+}
+
 // Rajoute les tagsCurrent aux filesCurrent
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){
@@ -176,7 +193,6 @@ void SessionActuel::lieTagFile(){
         this->_tagsCurrent.at(i)->addFile(&this->_filesCurrent);
     }
 
-    //On libère file et tag current après l'opération
-    this->_filesCurrent.clear();
+    //On libère tag current après l'opération
     this->_tagsCurrent.clear();
 }

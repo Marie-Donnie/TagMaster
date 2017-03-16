@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 
     //------TESTING SECTION--------
-
+    /*
     SessionActuel sessionActuel;
 
     Tag t = Tag();
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     sessionActuel.clearFilesCurrent();
     cout<<"Et maintenent on veut un 0 : "<<sessionActuel.getFilesCurrent().size()<<endl;
 
-
+    */
     //---END TESTING SECTION---------
 
     return a.exec();

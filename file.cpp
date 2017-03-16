@@ -73,3 +73,14 @@ void File::addTag(std::vector<Tag *> *tags){
 bool File::egal(File *file){
     return this->_fileAdress==file->getFileAdress();
 }
+
+// Renvoi une string avec tout les noms des tags du fichier
+
+std::string File::tagsToString(){
+    std::string listTags="";
+
+    for (int i=0;i<this->_tags.size();++i){
+        listTags+=this->_tags.at(i)->getTagName()+" ";
+    }
+    return listTags;
+}

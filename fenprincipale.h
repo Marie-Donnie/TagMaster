@@ -40,6 +40,7 @@ private :
     //Model
     QDirModel *modele;
     QStandardItemModel *modeleTag;
+    QStandardItemModel* modeleFileSelect;
 
     //PushButton
     QPushButton *modeTag;
@@ -48,6 +49,7 @@ private :
     QPushButton *ajouter;
     QPushButton *associateFile;
     QPushButton *multiSelection;
+    QPushButton *clearSelection; //Clear la liste de file séléctionnner
 
     //LineEdit
     QLineEdit* creeTag;
@@ -62,7 +64,9 @@ private :
 
 public slots:
      void addTag();
+     void addFileToSelection(const QModelIndex &index);
      void lieTagFile(const QModelIndex &index);
+     void clearSelectionSignal();
      void test();
 
 public:

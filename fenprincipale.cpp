@@ -14,17 +14,23 @@ FenPrincipale::FenPrincipale()
     viewRH->setEditTriggers(QAbstractItemView::NoEditTriggers);
     viewRB->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    //connect(viewL, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &));
     connect(viewL, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(lieTagFile(QModelIndex)));
+    connect(viewRH, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(addFileToSelection(QModelIndex)));
 
     // Le model qui sert d'explorateur de fichier
     modele = new QDirModel;
     modeleTag = new QStandardItemModel();
+    modeleFileSelect = new QStandardItemModel();
 
     modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
     modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre fichier") );
 
+
+    modeleFileSelect->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
+    modeleFileSelect->setHorizontalHeaderItem(1,new QStandardItem("Tags"));
+
     viewRH->setModel(modele);
+    viewRB->setModel(modeleFileSelect);
     viewL->setModel(modeleTag);
 
      // Initialisation des bouton
@@ -33,8 +39,10 @@ FenPrincipale::FenPrincipale()
     ordreLexico= new QPushButton("Ordre Lexicographique");
     associateFile = new QPushButton("Fichiers associé au tag");
     multiSelection= new QPushButton("Mode Multi Séléction");
+    clearSelection = new QPushButton("Clear Séléction ->");
 
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(test()));
+    QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
 
 
 
@@ -43,6 +51,7 @@ FenPrincipale::FenPrincipale()
     ordreLexico->setToolTip("Trie les tags par ordre lexicographique");
     associateFile->setToolTip("Montre les fichiers associés au tag");
     multiSelection->setToolTip("Mode pour ajouter des Tags à plusieur fichier en même temps");
+    clearSelection->setToolTip("Clear la fenêtre des files actuellement séléctionnés");
 
 
     //Initialisation des lineEdit
@@ -81,7 +90,8 @@ FenPrincipale::FenPrincipale()
     layoutCentral->addWidget(associateFile,3,0,2,1);
 
     // Remplissage du layout centrale 2
-    layoutCentral2->addWidget(multiSelection,0,0);
+    layoutCentral2->addWidget(clearSelection,0,0);
+    layoutCentral2->addWidget(multiSelection,1,0);
 
 
     // Remplissage du layout principale
@@ -131,11 +141,14 @@ void FenPrincipale::addTag(){
     creeTag->clear();
 }
 
+//TODO : Pas Fini
 void FenPrincipale::lieTagFile(const QModelIndex &index){
     int col = index.column();
     int row = index.row();
 
     if (index.isValid()) {
+        if(_session->getFilesCurrent().size()>0){
+
             QString cellText = index.data().toString();
             std::string string = cellText.toStdString();
             Tag* tag = _session->getTagByName(string);
@@ -143,7 +156,44 @@ void FenPrincipale::lieTagFile(const QModelIndex &index){
             QStandardItem* itemCount= new QStandardItem(QString::number(tag->getCount()));
             modeleTag->setItem(row,col+1,itemCount);
         }
+    }
 
+}
+
+void FenPrincipale::addFileToSelection(const QModelIndex &index){
+    if (index.isValid()) {
+        QIcon qIcon=modele->fileIcon(index);
+        QString qFileName= modele->fileName(index);
+        QString qFilePath = modele->filePath(index);
+
+        std::string fileName= qFileName.toStdString();
+        std::string filePath = qFilePath.toStdString();
+
+        _session->addFileToCurrent(fileName,filePath);
+        std::cout<<"nb Séléctionné "<<_session->getFilesCurrent().size()<<std::endl;
+
+        File* file =_session->getFileByPath(filePath);
+
+        std::string tagsList = file->tagsToString();
+        QString qTagsList = QString::fromStdString(tagsList);
+
+        QStandardItem* itemIcon = new QStandardItem(qIcon,qFileName);
+        QStandardItem* itemFileName = new QStandardItem(qFileName);
+        QStandardItem* itemTagList = new QStandardItem(qTagsList);
+        QList<QStandardItem*> list = QList<QStandardItem*>();
+        list.push_back(itemIcon);
+        list.push_back(itemTagList);
+
+        modeleFileSelect->appendRow(list);
+    }
+}
+
+void FenPrincipale::clearSelectionSignal(){
+    modeleFileSelect->clear();
+    _session->clearFilesCurrent();
+
+    modeleFileSelect->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
+    modeleFileSelect->setHorizontalHeaderItem(1,new QStandardItem("Tags"));
 }
 
 void FenPrincipale::test(){
