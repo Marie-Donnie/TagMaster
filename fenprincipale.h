@@ -62,6 +62,7 @@ private :
 
 public slots:
      void addTag();
+     void lieTagFile(const QModelIndex &index);
      void test();
 
 public:

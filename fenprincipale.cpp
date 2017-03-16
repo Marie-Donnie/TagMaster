@@ -10,9 +10,20 @@ FenPrincipale::FenPrincipale()
     viewRH = new QTreeView();
     viewRB = new QTableView();
 
+    viewL->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    viewRH->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    viewRB->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    //connect(viewL, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &));
+    connect(viewL, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(lieTagFile(QModelIndex)));
+
     // Le model qui sert d'explorateur de fichier
     modele = new QDirModel;
     modeleTag = new QStandardItemModel();
+
+    modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
+    modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre fichier") );
+
     viewRH->setModel(modele);
     viewL->setModel(modeleTag);
 
@@ -20,7 +31,6 @@ FenPrincipale::FenPrincipale()
     modeTag= new QPushButton("Mode Gestion des Tags");
     mostUse= new QPushButton("Les plus utilisés");
     ordreLexico= new QPushButton("Ordre Lexicographique");
-    ajouter= new QPushButton("Ajouter Tag(s)");
     associateFile = new QPushButton("Fichiers associé au tag");
     multiSelection= new QPushButton("Mode Multi Séléction");
 
@@ -31,7 +41,6 @@ FenPrincipale::FenPrincipale()
     modeTag->setToolTip("Mode pour géré vos Tags");
     mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");
     ordreLexico->setToolTip("Trie les tags par ordre lexicographique");
-    ajouter->setToolTip("Ajoute Tag(s) séléctioné au fichier séléctioné");
     associateFile->setToolTip("Montre les fichiers associés au tag");
     multiSelection->setToolTip("Mode pour ajouter des Tags à plusieur fichier en même temps");
 
@@ -53,7 +62,7 @@ FenPrincipale::FenPrincipale()
     layout = new QGridLayout;
     layoutLeft= new QGridLayout;
     layoutRight= new QGridLayout;
-    layoutCentral = new QGridLayout; // Bloc avec Ajouter Tag(s)
+    layoutCentral = new QGridLayout; // Bloc avec Millieu Haut
     layoutCentral2= new QGridLayout;// Bloc avec Mode multi Séléction
 
 
@@ -69,7 +78,6 @@ FenPrincipale::FenPrincipale()
     // Remplissage du layout centrale
     layoutCentral->addWidget(mostUse,0,0);
     layoutCentral->addWidget(ordreLexico,1,0);
-    layoutCentral->addWidget(ajouter,2,0);
     layoutCentral->addWidget(associateFile,3,0,2,1);
 
     // Remplissage du layout centrale 2
@@ -112,18 +120,30 @@ void FenPrincipale::addTag(){
     std::string tagName = creeTag->text().toStdString();
     if(this->_session->addTag(tagName)){
         Tag* tag = this->_session->getTagByName(tagName);
-        QStandardItem* item = new QStandardItem(1,2);
         QStandardItem* itemName= new QStandardItem(QString::fromStdString(tag->getTagName()));
         QStandardItem* itemCount= new QStandardItem(QString::number(tag->getCount()));
-        std::cout<<"le count attendut est 0 : "<<itemCount<<std::endl;
         QList<QStandardItem*> list = QList<QStandardItem*>();
         list.push_back(itemName);
         list.push_back(itemCount);
         modeleTag->appendRow(list);
 
-
     }
     creeTag->clear();
+}
+
+void FenPrincipale::lieTagFile(const QModelIndex &index){
+    int col = index.column();
+    int row = index.row();
+
+    if (index.isValid()) {
+            QString cellText = index.data().toString();
+            std::string string = cellText.toStdString();
+            Tag* tag = _session->getTagByName(string);
+            tag->incrementCount(1);
+            QStandardItem* itemCount= new QStandardItem(QString::number(tag->getCount()));
+            modeleTag->setItem(row,col+1,itemCount);
+        }
+
 }
 
 void FenPrincipale::test(){
