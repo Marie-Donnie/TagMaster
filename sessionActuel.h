@@ -45,6 +45,8 @@ public:
     Tag* getTagByName(std::string tagName);
     //Get file by its path
     File* getFileByPath(std::string filePath);
+    //Remove un file des file current et return true si ça réussi
+    bool removeFromFileCurrent(std::string filePath);
     // Rajoute les tagsCurrent aux filesCurrent
     void lieTagFile();
 

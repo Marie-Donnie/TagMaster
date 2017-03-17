@@ -17,6 +17,10 @@
 #include <QStackedLayout>
 #include <QStringListModel>
 #include <QStandardItemModel>
+#include <QAction>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QContextMenuEvent>
 
 #include "sessionActuel.h"
 
@@ -25,6 +29,7 @@ class FenPrincipale : public QMainWindow
      Q_OBJECT
 private :
     SessionActuel* _session;
+    QModelIndex _index;// Garde en mémoire ou on click dans les tables pour certaines opérations
 
     //Widget général
     QWidget *zoneCentrale;
@@ -62,12 +67,17 @@ private :
     QGridLayout *layoutCentral; // Bloc avec Ajouter Tag(s)
     QGridLayout *layoutCentral2;// Bloc avec Mode multi Séléction
 
+
+
 public slots:
      void addTag();
      void addFileToSelection(const QModelIndex &index);
      void lieTagFile(const QModelIndex &index);
      void clearSelectionSignal();
      void test();
+     void menuFileSelectionRequested(const QPoint &pos);
+     void setIndex(const QModelIndex &indexPos);
+
 
 public:
     FenPrincipale();

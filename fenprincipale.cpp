@@ -14,8 +14,13 @@ FenPrincipale::FenPrincipale()
     viewRH->setEditTriggers(QAbstractItemView::NoEditTriggers);
     viewRB->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    viewRB->setContextMenuPolicy(Qt::CustomContextMenu);
+
+
     connect(viewL, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(lieTagFile(QModelIndex)));
     connect(viewRH, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(addFileToSelection(QModelIndex)));
+    connect(viewRB, SIGNAL(pressed(const QModelIndex &)),this, SLOT(setIndex(const QModelIndex &)));
+    connect(viewRB, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(menuFileSelectionRequested(QPoint)));
 
     // Le model qui sert d'explorateur de fichier
     modele = new QDirModel;
@@ -27,7 +32,10 @@ FenPrincipale::FenPrincipale()
 
 
     modeleFileSelect->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
-    modeleFileSelect->setHorizontalHeaderItem(1,new QStandardItem("Tags"));
+    modeleFileSelect->setHorizontalHeaderItem(1, new QStandardItem("Path"));
+    modeleFileSelect->setHorizontalHeaderItem(2,new QStandardItem("Tags"));
+
+
 
     viewRH->setModel(modele);
     viewRB->setModel(modeleFileSelect);
@@ -147,7 +155,7 @@ void FenPrincipale::lieTagFile(const QModelIndex &index){
     int row = index.row();
 
     if (index.isValid()) {
-        if(_session->getFilesCurrent().size()>0){
+        if((_session->getFilesCurrent().size()>0)&&(col==0)){
 
             QString cellText = index.data().toString();
             std::string string = cellText.toStdString();
@@ -174,15 +182,17 @@ void FenPrincipale::addFileToSelection(const QModelIndex &index){
         std::string filePath = qFilePath.toStdString();
 
         if(_session->addFileToCurrent(fileName,filePath)){
-            std::cout<<"Hello"<<std::endl;
             File* file =_session->getFileByPath(filePath);
             std::string tagsList = file->tagsToString();
             QString qTagsList = QString::fromStdString(tagsList);
 
-            QStandardItem* itemIcon = new QStandardItem(qIcon,qFileName);
+            //QStandardItem* itemIcon = new QStandardItem(qIcon,qFileName);
+            QStandardItem* itemIcon = new QStandardItem(qFileName);
+            QStandardItem* itemPath = new QStandardItem(qFilePath);
             QStandardItem* itemTagList = new QStandardItem(qTagsList);
             QList<QStandardItem*> list = QList<QStandardItem*>();
             list.push_back(itemIcon);
+            list.push_back(itemPath);
             list.push_back(itemTagList);
 
             modeleFileSelect->appendRow(list);
@@ -198,6 +208,43 @@ void FenPrincipale::clearSelectionSignal(){
     modeleFileSelect->setHorizontalHeaderItem(1,new QStandardItem("Tags"));
 }
 
+void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
+
+
+    QPoint globalPos = viewRB->mapToGlobal(pos);
+    QMenu myMenu;
+    myMenu.addAction("Retirer");
+    myMenu.addAction("Retirer un tag");
+    QAction* selectedItem = myMenu.exec(globalPos);
+
+
+    if(selectedItem){
+        QString qS =selectedItem->text();
+        std::string s = qS.toStdString();
+        std::cout<<"nom "<<s<<std::endl;
+
+
+        if (s=="Retirer"){
+            int row = _index.row();
+            if(_index.isValid()){
+                if(row<_session->getFilesCurrent().size()){
+                    std::string filePath = _session->getFilesCurrent().at(row)-> getFileAdress();
+                    std::cout<<"path "<<filePath<<std::endl;
+                    _session->removeFromFileCurrent(filePath);
+                    refreshFileSelect();
+                }
+
+
+            }
+        }
+
+    }
+}
+
+void FenPrincipale::setIndex(const QModelIndex & indexPos){
+    _index=indexPos;
+}
+
 void FenPrincipale::test(){
     this->rechercheFile->setText("sd");
 
@@ -206,12 +253,21 @@ void FenPrincipale::test(){
 
 void FenPrincipale::refreshFileSelect(){
 
+    modeleFileSelect->clear();
+    modeleFileSelect->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
+    modeleFileSelect->setHorizontalHeaderItem(1, new QStandardItem("Path"));
+    modeleFileSelect->setHorizontalHeaderItem(2,new QStandardItem("Tags"));
     for ( int i=0;i<_session->getFilesCurrent().size();++i){
-
+        std::string fileName = _session->getFilesCurrent().at(i)->getFileName();
+        std::string filePath = _session->getFilesCurrent().at(i)->getFileAdress();
         std::string tags = _session->getFilesCurrent().at(i)->tagsToString();
 
+        QStandardItem *itemFileName = new QStandardItem(QString::fromStdString(fileName));
+        QStandardItem *itemFilePath = new QStandardItem(QString::fromStdString(filePath));
         QStandardItem *itemTags = new QStandardItem(QString::fromStdString(tags));
 
-        modeleFileSelect->setItem(i,1,itemTags);
+        modeleFileSelect->setItem(i,0,itemFileName);
+        modeleFileSelect->setItem(i,1,itemFilePath);
+        modeleFileSelect->setItem(i,2,itemTags);
     }
 }

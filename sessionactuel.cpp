@@ -194,6 +194,24 @@ File* SessionActuel::getFileByPath(std::string filePath){
     return f;
 }
 
+//Remove un file des file current et return true si ça réussi
+bool SessionActuel::removeFromFileCurrent(std::string filePath){
+    bool trouver = false;
+    int i=0;
+    File *f = new File("temporaire",filePath);
+
+
+    while((i<this->_filesCurrent.size())&&(!trouver)){
+        if(this->_filesCurrent.at(i)->egal(f)){
+            trouver=true;
+            this->_filesCurrent.erase(this->_filesCurrent.begin()+i);
+        }else{
+            ++i;
+        }
+    }
+    return trouver;
+}
+
 // Rajoute les tagsCurrent aux filesCurrent
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){
