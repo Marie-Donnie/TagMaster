@@ -152,9 +152,12 @@ void FenPrincipale::lieTagFile(const QModelIndex &index){
             QString cellText = index.data().toString();
             std::string string = cellText.toStdString();
             Tag* tag = _session->getTagByName(string);
-            tag->incrementCount(1);
+            _session->addTagToCurrent(string);
+            _session->lieTagFile();
             QStandardItem* itemCount= new QStandardItem(QString::number(tag->getCount()));
             modeleTag->setItem(row,col+1,itemCount);
+            _session->lieTagFile();
+            refreshFileSelect();
         }
     }
 
@@ -199,4 +202,17 @@ void FenPrincipale::clearSelectionSignal(){
 void FenPrincipale::test(){
     this->rechercheFile->setText("sd");
 
+}
+// ----Fonction------
+
+void FenPrincipale::refreshFileSelect(){
+
+    for ( int i=0;i<_session->getFilesCurrent().size();++i){
+
+        std::string tags = _session->getFilesCurrent().at(i)->tagsToString();
+
+        QStandardItem *itemTags = new QStandardItem(QString::fromStdString(tags));
+
+        modeleFileSelect->setItem(i,1,itemTags);
+    }
 }

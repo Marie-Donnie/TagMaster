@@ -74,6 +74,7 @@ public:
 
     SessionActuel* getSession();
     void setSession( SessionActuel *session);
+    void refreshFileSelect();
 };
 
 #endif // FENPRINCIPALE_H
