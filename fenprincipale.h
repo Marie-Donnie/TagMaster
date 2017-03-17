@@ -87,6 +87,7 @@ public:
     SessionActuel* getSession();
     void setSession( SessionActuel *session);
     void refreshFileSelect();
+    void refreshModeleTag();
 };
 
 #endif // FENPRINCIPALE_H

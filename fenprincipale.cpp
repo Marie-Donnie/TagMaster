@@ -230,8 +230,6 @@ void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
                     _session->removeFromFileCurrent(filePath);
                     refreshFileSelect();
                 }
-
-
             }
         }
         if(actionString=="Retirer un tag"){
@@ -245,12 +243,11 @@ void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
                         File* f = _session->getFileByPath(filePath);
                         f->removeTag(qTagName.toStdString());
                         refreshFileSelect();
+                        refreshModeleTag();
                     }
-
                 }
             }
         }
-
     }
 }
 
@@ -282,5 +279,22 @@ void FenPrincipale::refreshFileSelect(){
         modeleFileSelect->setItem(i,0,itemFileName);
         modeleFileSelect->setItem(i,1,itemFilePath);
         modeleFileSelect->setItem(i,2,itemTags);
+    }
+}
+
+void FenPrincipale::refreshModeleTag(){
+    modeleTag->clear();
+    modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
+    modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre fichier") );
+
+    for (int i=0;i<_session->getTags().size();++i){
+
+        std::string tagName = _session->getTags().at(i)->getTagName();
+
+        QStandardItem* itemTagName = new QStandardItem(QString::fromStdString(tagName));
+        QStandardItem* itemCount= new QStandardItem(QString::number(_session->getTags().at(i)->getCount()));
+
+        modeleTag->setItem(i,0,itemTagName);
+        modeleTag->setItem(i,1,itemCount);
     }
 }
