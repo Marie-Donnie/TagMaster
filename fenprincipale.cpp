@@ -160,6 +160,7 @@ void FenPrincipale::lieTagFile(const QModelIndex &index){
             refreshFileSelect();
         }
     }
+    std::cout<<" size "<<_session->getFilesCurrent().size()<<std::endl;
 
 }
 
@@ -172,22 +173,20 @@ void FenPrincipale::addFileToSelection(const QModelIndex &index){
         std::string fileName= qFileName.toStdString();
         std::string filePath = qFilePath.toStdString();
 
-        _session->addFileToCurrent(fileName,filePath);
-        std::cout<<"nb Séléctionné "<<_session->getFilesCurrent().size()<<std::endl;
+        if(_session->addFileToCurrent(fileName,filePath)){
+            std::cout<<"Hello"<<std::endl;
+            File* file =_session->getFileByPath(filePath);
+            std::string tagsList = file->tagsToString();
+            QString qTagsList = QString::fromStdString(tagsList);
 
-        File* file =_session->getFileByPath(filePath);
+            QStandardItem* itemIcon = new QStandardItem(qIcon,qFileName);
+            QStandardItem* itemTagList = new QStandardItem(qTagsList);
+            QList<QStandardItem*> list = QList<QStandardItem*>();
+            list.push_back(itemIcon);
+            list.push_back(itemTagList);
 
-        std::string tagsList = file->tagsToString();
-        QString qTagsList = QString::fromStdString(tagsList);
-
-        QStandardItem* itemIcon = new QStandardItem(qIcon,qFileName);
-        QStandardItem* itemFileName = new QStandardItem(qFileName);
-        QStandardItem* itemTagList = new QStandardItem(qTagsList);
-        QList<QStandardItem*> list = QList<QStandardItem*>();
-        list.push_back(itemIcon);
-        list.push_back(itemTagList);
-
-        modeleFileSelect->appendRow(list);
+            modeleFileSelect->appendRow(list);
+        }
     }
 }
 

@@ -32,7 +32,7 @@ public:
     // Return false si le file existe déjà
     bool addFile(std::string fileName, std::string fileAdress);
     // Rajoute un file aux current files
-    void addFileToCurrent(std::string fileName,std::string filePath);
+    bool addFileToCurrent(std::string fileName,std::string filePath);
     //Rajoute un au tag current, suppose que le tag est déjà dans la liste
     void addTagToCurrent(std::string tagName);
     //Enlève un tag de la liste de tag
