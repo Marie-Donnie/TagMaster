@@ -74,13 +74,30 @@ bool File::egal(File *file){
     return this->_fileAdress==file->getFileAdress();
 }
 
-// Renvoi une string avec tout les noms des tags du fichier
+// Enlève un tag du fichier par son nom. Renvoit true le fichier avait ce tag
+bool File::removeTag(std::string tagName){
+    bool trouver = false;
+    int i=0;
 
+    while ((i<this->_tags.size())&&(!trouver)){
+        if(this->_tags.at(i)->getTagName()==tagName){
+            trouver=true;
+            Tag* tag =this->_tags.at(i);
+            this->_tags.erase(this->_tags.begin()+i);
+            tag->removeFile(this->_fileAdress);
+        }else{
+            ++i;
+        }
+    }
+    return trouver;
+}
+
+// Renvoi une string avec tout les noms des tags du fichier
 std::string File::tagsToString(){
     std::string listTags="";
 
     for (int i=0;i<this->_tags.size();++i){
-        listTags+=this->_tags.at(i)->getTagName()+" ";
+        listTags+=this->_tags.at(i)->getTagName()+", ";
     }
     return listTags;
 }

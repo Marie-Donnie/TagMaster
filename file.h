@@ -32,6 +32,7 @@ public:
 
     bool addTag(Tag* tag);
     void addTag(std::vector<Tag*> *tags);// Rajout plusieur tag en même temps
+    bool removeTag(std::string tagName);// Enlève un tag du fichier par son nom. Renvoit true le fichier avait ce tag
     bool egal(File* file); // Même path = même file
 
     std::string tagsToString();// Renvoi une string avec tout les noms des tags du fichier

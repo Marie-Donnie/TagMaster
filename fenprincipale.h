@@ -21,6 +21,8 @@
 #include <QMenu>
 #include <QMouseEvent>
 #include <QContextMenuEvent>
+#include <QMessageBox>
+#include <QInputDialog>
 
 #include "sessionActuel.h"
 

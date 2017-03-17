@@ -210,31 +210,44 @@ void FenPrincipale::clearSelectionSignal(){
 
 void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
 
-
     QPoint globalPos = viewRB->mapToGlobal(pos);
     QMenu myMenu;
-    myMenu.addAction("Retirer");
+    myMenu.addAction("Retirer de la séléction");
     myMenu.addAction("Retirer un tag");
     QAction* selectedItem = myMenu.exec(globalPos);
 
-
     if(selectedItem){
-        QString qS =selectedItem->text();
-        std::string s = qS.toStdString();
-        std::cout<<"nom "<<s<<std::endl;
+        //Récupération du text de l'action choisie
+        QString qActionString =selectedItem->text();
+        std::string actionString = qActionString.toStdString();
+        int row = _index.row();
 
-
-        if (s=="Retirer"){
-            int row = _index.row();
+        if (actionString=="Retirer de la séléction"){
             if(_index.isValid()){
-                if(row<_session->getFilesCurrent().size()){
+                if(row<_session->getFilesCurrent().size()){// Evite sortie du vector
+                    // La row corespond à la position dans le vector filesCurrent du fichier
                     std::string filePath = _session->getFilesCurrent().at(row)-> getFileAdress();
-                    std::cout<<"path "<<filePath<<std::endl;
                     _session->removeFromFileCurrent(filePath);
                     refreshFileSelect();
                 }
 
 
+            }
+        }
+        if(actionString=="Retirer un tag"){
+            if (_index.isValid()){
+                if(row<_session->getFilesCurrent().size()){
+                    std::string filePath = _session->getFilesCurrent().at(row)-> getFileAdress();
+                    bool ok = false;
+                    QString qTagName = QInputDialog::getText(this, "Supression Tag du fichier", "Rentrer le nom du tag à retirer du fichier",
+                                                             QLineEdit::Normal, QString(), &ok);
+                    if(ok && !qTagName.isEmpty()){
+                        File* f = _session->getFileByPath(filePath);
+                        f->removeTag(qTagName.toStdString());
+                        refreshFileSelect();
+                    }
+
+                }
             }
         }
 

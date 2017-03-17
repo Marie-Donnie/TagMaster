@@ -98,13 +98,14 @@ bool SessionActuel::addFileToCurrent(std::string fileName, std::string filePath)
     bool pasTrouver=true;
     bool pasDansCurrent=true;
     int i=0;
+
     while((i<this->_files.size())&&(pasTrouver)){
         if(file->egal(this->_files.at(i))){
             pasTrouver=false;
             //Le file existe déjà dans notre liste on le prend et on le rajoute au current
             //Si il n'est pas encore dedans
             for (int n=0;n<this->_filesCurrent.size();++n){
-                if(file->egal(this->_filesCurrent.at(i))){
+                if(file->egal(this->_filesCurrent.at(n))){
                     pasDansCurrent=false;
                 }
             }
@@ -122,7 +123,7 @@ bool SessionActuel::addFileToCurrent(std::string fileName, std::string filePath)
         this->_filesCurrent.push_back(file);
         this->_files.push_back(file);
     }
-    return pasTrouver;
+    return pasDansCurrent;
 }
 
 //Rajoute un au tag current, suppose que le tag est déjà dans la liste

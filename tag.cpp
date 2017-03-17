@@ -50,15 +50,20 @@ void Tag::incrementCount(int files){
     this->_count+=files;
 }
 
+//Décrémente le compteur du nombre de de fichier du tag
+
+void Tag::decrementCount(int files){
+    this->_count-=files;
+}
 
 //Return met dans "file" le ficher d'on on a saisie le nom
 //Return false si le fichier n'est pas trouver et true sinon
-bool Tag::getFile(std::string fileName, File &file){
+bool Tag::getFile(std::string filePath, File &file){
     bool found=false;
     int i=0;
     this->_files.at(i);
     while ((i < this->_files.size())&&(!found) ){
-      if (this->_files.at(i)->getFileName()==fileName){
+      if (this->_files.at(i)->getFileAdress()==filePath){
           file=*(this->_files.at(i));
           found=true;
         }else{
@@ -94,6 +99,23 @@ void Tag::addFile(std::vector<File *> *files){
     for (int i=0;i<files->size();++i){
         this->addFile(files->at(i));
     }
+}
+
+//Enlève un file du tag. Renvoit true si le file était dans la liste de file du tag.
+bool Tag::removeFile(std::string filePath){
+    bool trouver = false;
+    int i=0;
+
+    while ((i<this->_files.size())&&(!trouver)) {
+        if(this->_files.at(i)->getFileAdress()==filePath){
+            trouver=true;
+            this->_files.erase(_files.begin()+i);
+            this->decrementCount(1);
+        }else{
+            ++i;
+        }
+    }
+    return trouver;
 }
 
 //
