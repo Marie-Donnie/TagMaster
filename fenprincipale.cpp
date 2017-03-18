@@ -328,9 +328,11 @@ void FenPrincipale::switchMode(){
     if(mainLayout->currentIndex()==0){
         mainLayout->setCurrentIndex(1);
         refreshModeleTag_1();
+        refreshFileSelect_1();
     }else{
         mainLayout->setCurrentIndex(0);
         refreshModeleTag();
+        refreshFileSelect();
     }
 }
 
@@ -392,5 +394,25 @@ void FenPrincipale::refreshModeleTag_1(){
 
         modeleTag_1->setItem(i,0,itemTagName);
         modeleTag_1->setItem(i,1,itemCount);
+    }
+}
+
+void FenPrincipale::refreshFileSelect_1(){
+    modeleFileSelect_1->clear();
+    modeleFileSelect_1->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
+    modeleFileSelect_1->setHorizontalHeaderItem(1, new QStandardItem("Path"));
+    modeleFileSelect_1->setHorizontalHeaderItem(2,new QStandardItem("Tags"));
+    for ( int i=0;i<_session->getFilesCurrent2().size();++i){
+        std::string fileName = _session->getFilesCurrent2().at(i)->getFileName();
+        std::string filePath = _session->getFilesCurrent2().at(i)->getFileAdress();
+        std::string tags = _session->getFilesCurrent2().at(i)->tagsToString();
+
+        QStandardItem *itemFileName = new QStandardItem(QString::fromStdString(fileName));
+        QStandardItem *itemFilePath = new QStandardItem(QString::fromStdString(filePath));
+        QStandardItem *itemTags = new QStandardItem(QString::fromStdString(tags));
+
+        modeleFileSelect_1->setItem(i,0,itemFileName);
+        modeleFileSelect_1->setItem(i,1,itemFilePath);
+        modeleFileSelect_1->setItem(i,2,itemTags);
     }
 }

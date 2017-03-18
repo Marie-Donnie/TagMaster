@@ -26,7 +26,7 @@ std::vector<File*>& SessionActuel::getFilesCurrent(){
 }
 
 std::vector<File*>& SessionActuel::getFilesCurrent2(){
-    return this->_filesCurrent;
+    return this->_filesCurrent2;
 }
 
 std::vector<Tag*> SessionActuel::getTagsCurrent(){
@@ -46,7 +46,7 @@ void SessionActuel::setFilesCurrent(std::vector<File *> &files){
 }
 
 void SessionActuel::setFilesCurrent2(std::vector<File *> &files){
-    this->_filesCurrent=files;
+    this->_filesCurrent2=files;
 }
 
 void SessionActuel::setTagsCurrent(std::vector<Tag *> &tags){
