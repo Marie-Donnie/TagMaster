@@ -102,29 +102,97 @@ private :
 
 
 public slots:
+    /*! \fn void addTag()
+        \brief Ajoute un tag à la fenêtre FenPrincipale.
+    */
      void addTag();
+
+     /*! \fn void addFileToSelection(const QModelIndex &index)
+    \brief Ajoute à la liste des fichiers sélectionnés le fichier à l'index index.
+    \param index l'index Qt du file à rajouter
+    */
      void addFileToSelection(const QModelIndex &index);
+     /*! \fn void lieTagFile(const QModeIndex &index)
+         \brief Rajoute et
+         \param index l'index Qt du tag à rajouter
+     */
      void lieTagFile(const QModelIndex &index);
+     /*! \fn void clearSelectionSignal()
+         \brief Quand signal reçu clear les files current et refresh l'affichage
+     */
      void clearSelectionSignal();
-     void test();
+     /*! \fn void menuFileSelectionRequested(const QPoint &pos)
+         \brief prossède à l'ouverture du menue contextuel
+         \param pos la position QPoint du curseur
+     */
      void menuFileSelectionRequested(const QPoint &pos);
+     /*! \fn void setIndex(const QModelIndex &indexPos)
+         \brief Règle l'index à l'index donné
+         \param index l'index QModel
+     */
      void setIndex(const QModelIndex &indexPos);
+     /*! \fn void switchMode()
+         \brief Permet de passer d'un mode à l'autre
+     */
      void switchMode();// Change d'un mode à l'autre
      // Remplie fileCurrent2 avec les file du tag double clické et met à jours l'affichage
+     /*! \fn void fileDuTag(const QModelIndex &index)
+         \brief Affiche les fichiers liés au tag à l'index donné
+         \param index l'index QtModel du tag cliquer
+     */
      void fileDuTag(const QModelIndex &index);
+     /*! \fn void selectionTag(const QModelIndex &index);
+         \brief Rajoute un tag aux tag actuellement séléctionner.
+         Permet dans rajouter plusieur avec ctr+click
+         \param index l'index QtModel du tag cliquer
+     */
      void selectionTag(const QModelIndex &index);
-     //void signalRenommer();
+     /*! \fn void slotRenommer();
+         \brief S'occuppe du renommage d'un tag une fois le signal reçu
+         \warning ne marche qui si 1 tag est séléctionner
+     */
+     void slotRenommer();
+     /*! \fn void slotFusionner();
+         \brief S'occuppe de la fusion de plusieur tag
+         \warning ne marche qui si plus d'un tag est séléctionner
+     */
+     void slotFusionner();
+     /*! \fn void slotSupprimer();
+         \brief S'occuppe de la supression de plusieur tag
+         \warning ne marche qui si 1 ou plusieur tag sont séléctionner
+     */
+     void slotSupprimer();
 
 
 
 public:
     FenPrincipale();
 
+    /*! \fn SessionActuel* getSession()
+        \brief Accesseur de l'attribut session de FenPrincipale.
+        \return La session actuelle de FenPrincipale
+    */
     SessionActuel* getSession();
+    /*! \fn void setSession(SessionActuel *session)
+        \brief Règle la session de FenPrincipale.
+        \param session le pointeur vers la session qu'on veut donner à FenPrincipale
+    */
     void setSession( SessionActuel *session);
+    /*! \fn void refreshFileSelect()
+        \brief Raffraichit la sélection des fichiers du mode gestion de fichier
+    */
     void refreshFileSelect();
+    /*! \fn void refreshModeleTag()
+        \brief refresh la liste de tag du mode gestion de fichier
+    */
     void refreshModeleTag();
+    /*! \fn void refreshModeleTag_1()
+        \brief refresh la liste de tag du mode gestion de Tag
+    */
     void refreshModeleTag_1();
+    /*! \fn void refreshFileSelect_1()
+        \brief refresh la liste des fichier du mode tag
+    */
     void refreshFileSelect_1();
 
 };

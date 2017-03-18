@@ -27,6 +27,9 @@ FenPrincipale::FenPrincipale()
 
     viewRB->setContextMenuPolicy(Qt::CustomContextMenu);
 
+    viewL->setToolTip("Double clique pour rajouter rajouter un tag au fichier séléctionner");
+    viewRB->setToolTip("Indique les information sur les fichier actuellement séléctionner.\n Clique droit pour plus d'option");
+    viewRH->setToolTip("Double clique pour rajouter un fichier ou dossier à la séléction");
 
     connect(viewL, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(lieTagFile(QModelIndex)));
     connect(viewRH, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(addFileToSelection(QModelIndex)));
@@ -51,7 +54,7 @@ FenPrincipale::FenPrincipale()
     viewL->setModel(modeleTag);
 
      // Initialisation des boutons
-    modeTag= new QPushButton("Mode Gestion des Tags");
+    modeTag= new QPushButton("Mode gestion de Tag");
     mostUse= new QPushButton("Les plus utilisés");
     ordreLexico= new QPushButton("Ordre Lexicographique");
     associateFile = new QPushButton("Fichiers associé au tag");
@@ -61,12 +64,13 @@ FenPrincipale::FenPrincipale()
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
 
-    modeTag->setToolTip("Mode pour gérer vos Tags");
+
+    modeTag->setToolTip("Passer au mode pour gérer vos Tags");
     mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");
     ordreLexico->setToolTip("Trie les tags par ordre lexicographique");
     associateFile->setToolTip("Montre les fichiers associés au tag");
     multiSelection->setToolTip("Mode pour ajouter des Tags à plusieur fichier en même temps");
-    clearSelection->setToolTip("Clear la fenêtre des files actuellement séléctionnés");
+    clearSelection->setToolTip("Retire les fichiers de la fenêtre de séléction");
 
     //Initialisation des lineEdit
     creeTag = new QLineEdit();
@@ -94,16 +98,16 @@ FenPrincipale::FenPrincipale()
     layoutRight->addWidget(viewRH,0,0,1,1);
     layoutRight->addWidget(viewRB,1,0,2,1);
     // Remplissage du layout centrale
-    layoutCentral->addWidget(mostUse,0,0);
-    layoutCentral->addWidget(ordreLexico,1,0);
-    layoutCentral->addWidget(associateFile,3,0,2,1);
+    layoutCentral->addWidget(mostUse,1,0,1,1);
+    layoutCentral->addWidget(ordreLexico,2,0);
+    //layoutCentral->addWidget(associateFile,3,0,2,1);
     // Remplissage du layout centrale 2
-    layoutCentral2->addWidget(clearSelection,0,0);
-    layoutCentral2->addWidget(multiSelection,1,0);
+    layoutCentral2->addWidget(clearSelection,0,0,2,1);
+    //layoutCentral2->addWidget(multiSelection,1,0);
     // Remplissage du layout principale
     layout->addWidget(creeTag,0,0);
     layout-> addWidget(modeTag,0,1);
-    layout->addWidget(rechercheFile,0,2);
+   // layout->addWidget(rechercheFile,0,2);
     layout->addLayout(layoutLeft,1,0,3,1);
     layout->addLayout(layoutCentral,1,1);
     layout->addLayout(layoutCentral2,3,1);
@@ -150,18 +154,24 @@ FenPrincipale::FenPrincipale()
     supprimer_1 = new QPushButton("Supprimer");
     fichierAssocie_1 = new QPushButton("Fichiers associés aux tags");
 
-    modeGestionFichier_1->setToolTip("Mode pour gérer vos fichiers");
+    modeGestionFichier_1->setToolTip("Passer au mode pour gérer vos fichiers");
     renommer_1->setToolTip("Renomme le fichier sélectionné");
     fusionner_1->setToolTip("Fusionne les tags sélectionné");
     fichierAssocie_1->setToolTip(("Affiche les fichiers associés aux tags"));
 
     QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
+    QObject::connect(renommer_1,SIGNAL(clicked()),this,SLOT(slotRenommer()));
+    QObject::connect(fusionner_1,SIGNAL(clicked()),this,SLOT(slotFusionner()));
+    QObject::connect(supprimer_1,SIGNAL(clicked()),this,SLOT(slotSupprimer()));
+
 
     //Initialisation des lineEdit
     creeTag_1 = new QLineEdit;
 
     creeTag_1->setPlaceholderText("Crée tag");
     creeTag->setToolTip("Appuyez sur entrée pour créer le tag");
+
+     QObject::connect(creeTag_1,SIGNAL(returnPressed()),this,SLOT(addTag()));
 
     //Initialisation des layout
     layout_1 = new QGridLayout;
@@ -174,10 +184,10 @@ FenPrincipale::FenPrincipale()
     // Remplissage du layout right
     layoutRight_1->addWidget(viewR_1,0,0);
     // Remplissage du layout centrale
-    layoutCentral_1->addWidget(renommer_1,0,0);
-    layoutCentral_1->addWidget(fusionner_1,1,0);
-    layoutCentral_1->addWidget(supprimer_1,2,0);
-    layoutCentral_1->addWidget(fichierAssocie_1,3,0);
+    layoutCentral_1->addWidget(renommer_1,1,0,2,1);
+    layoutCentral_1->addWidget(fusionner_1,3,0,2,1);
+    layoutCentral_1->addWidget(supprimer_1,7,0,4,1);
+    //layoutCentral_1->addWidget(fichierAssocie_1,3,0);
    // Remplissage du layout principale
     layout_1->addWidget(creeTag_1,0,0);
     layout_1-> addWidget(modeGestionFichier_1,0,1);
@@ -203,29 +213,26 @@ FenPrincipale::FenPrincipale()
 
 // -----Getter and Setter---------
 
-/*! \fn SessionActuel* getSession()
-    \brief Accesseur de l'attribut session de FenPrincipale.
-    \return La session actuelle de FenPrincipale
-*/
+
 SessionActuel *FenPrincipale::getSession(){
     return this->_session;
 }
 
-/*! \fn void setSession(SessionActuel *session)
-    \brief Règle la session de FenPrincipale.
-    \param session le pointeur vers la session qu'on veut donner à FenPrincipale
-*/
+
 void FenPrincipale::setSession(SessionActuel *session){
     this->_session=session;
 }
 
 //------Slots fonctions------
-/*! \fn void addTag()
-    \brief Ajoute un tag à la fenêtre FenPrincipale.
-*/
-void FenPrincipale::addTag(){
 
-    std::string tagName = creeTag->text().toStdString();
+void FenPrincipale::addTag(){
+     std::string tagName;
+    if(mainLayout->currentIndex()==0){
+         tagName = creeTag->text().toStdString();
+    }else{
+         tagName = creeTag_1->text().toStdString();
+    }
+
     if(this->_session->addTag(tagName)){
         Tag* tag = this->_session->getTagByName(tagName);
         QStandardItem* itemName= new QStandardItem(QString::fromStdString(tag->getTagName()));
@@ -234,15 +241,13 @@ void FenPrincipale::addTag(){
         list.push_back(itemName);
         list.push_back(itemCount);
         modeleTag->appendRow(list);
-
+        refreshModeleTag_1();
     }
     creeTag->clear();
+    creeTag_1->clear();
 }
 
-/*! \fn void lieTagFile(const QModeIndex &index)
-    \brief
-    \param index l'index Qt
-*/
+
 void FenPrincipale::lieTagFile(const QModelIndex &index){
     int col = index.column();
     int row = index.row();
@@ -263,10 +268,7 @@ void FenPrincipale::lieTagFile(const QModelIndex &index){
     }
 }
 
-/*! \fn void addFileToSelection(const QModelIndex &index)
-    \brief Ajoute à la liste des fichiers sélectionnés le fichier à l'index index.
-    \param index l'index Qt
-*/
+
 void FenPrincipale::addFileToSelection(const QModelIndex &index){
     if (index.isValid()) {
         QIcon qIcon=modele->fileIcon(index);
@@ -295,9 +297,7 @@ void FenPrincipale::addFileToSelection(const QModelIndex &index){
     }
 }
 
-/*! \fn void clearSelectionSignal()
-    \brief
-*/
+
 void FenPrincipale::clearSelectionSignal(){
     modeleFileSelect->clear();
     _session->clearFilesCurrent();
@@ -306,10 +306,7 @@ void FenPrincipale::clearSelectionSignal(){
     modeleFileSelect->setHorizontalHeaderItem(1,new QStandardItem("Tags"));
 }
 
-/*! \fn void menuFileSelectionRequested(const QPoint &pos)
-    \brief
-    \param pos la position QPoint
-*/
+
 void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
 
     QPoint globalPos = viewRB->mapToGlobal(pos);
@@ -353,17 +350,12 @@ void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
     }
 }
 
-/*! \fn void setIndex(const QModelIndex &indexPos)
-    \brief Règle l'index à l'index donné
-    \param index l'index QModel
-*/
+
 void FenPrincipale::setIndex(const QModelIndex & indexPos){
     _index=indexPos;
 }
 
-/*! \fn void switchMode()
-    \brief Change le mode d'affichage
-*/
+
 void FenPrincipale::switchMode(){
     if(mainLayout->currentIndex()==0){
         mainLayout->setCurrentIndex(1);
@@ -378,10 +370,7 @@ void FenPrincipale::switchMode(){
     }
 }
 
-/*! \fn void fileDuTag(const QModelIndex &index)
-    \brief Affiche les fichiers liés au tag à l'index donné
-    \param index l'index QtModel
-*/
+
 void FenPrincipale::fileDuTag(const QModelIndex &index){
     if (index.isValid()){
         if(index.column()==0){
@@ -402,25 +391,82 @@ void FenPrincipale::fileDuTag(const QModelIndex &index){
 void FenPrincipale::selectionTag(const QModelIndex &index){
     if (index.isValid()){
         if(index.column()==0){
-            QString cellText = index.data().toString();
-            std::string string = cellText.toStdString();
-            Tag* tag = _session->getTagByName(string);
-            _session->clearTagsCurrent();
-           _session->addTagToCurrent(tag);
+            if((QApplication::keyboardModifiers().testFlag(Qt::ControlModifier) == true)){
+                QString cellText = index.data().toString();
+                std::string string = cellText.toStdString();
+                Tag* tag = _session->getTagByName(string);
+                _session->addTagToCurrent(tag);
+            }else{
+
+                QString cellText = index.data().toString();
+                std::string string = cellText.toStdString();
+                Tag* tag = _session->getTagByName(string);
+                _session->clearTagsCurrent();
+                _session->addTagToCurrent(tag);
+            }
+        }
+
+    }
+}
+
+void FenPrincipale::slotRenommer(){
+
+    if(_session->getTagsCurrent().size()==1){
+            bool ok = false;
+            QString qTagName = QInputDialog::getText(this, "Renommer le Tag", "Rentrer le nouveau du tag",
+                                                 QLineEdit::Normal, QString(), &ok);
+            if(ok){
+                std::string tagName = qTagName.toStdString();
+                if(!_session->existeTag(tagName)){
+                    _session->getTagsCurrent().at(0)->setTagName(tagName);
+                    refreshModeleTag_1();
+                    refreshModeleTag();
+                }
+            }
+    }
+}
+
+void FenPrincipale::slotFusionner(){
+    bool testDuplication = false;
+    if(_session->getTagsCurrent().size()>1){
+        bool ok = false;
+        QString qTagNewName = QInputDialog::getText(this, "Fusion de tag", "Rentrer le nom du tag résultant de la fusion",
+                                                    QLineEdit::Normal, QString(), &ok);
+        if(ok){
+            std::string tagNewName = qTagNewName.toStdString();
+            for (int i =0;i<_session->getTagsCurrent().size();++i){
+                if(_session->getTagsCurrent().at(i)->getTagName()==tagNewName){
+                    testDuplication=true; // Le tag résulant de la fusion a le même nom que un
+                                          // des tags fusionner ce qu'on autorise
+                }
+
+            }
+            if((!_session->existeTag(tagNewName))||(testDuplication)){// Evite 2 tag différent avant le même nom
+                _session->fusionTag(_session->getTagsCurrent(),tagNewName);
+                refreshModeleTag_1();
+                refreshModeleTag();
+                refreshFileSelect();
+                refreshFileSelect_1();
+            }
         }
     }
 }
 
+void FenPrincipale::slotSupprimer(){
+    if(_session->getTagsCurrent().size()>=1){
 
-void FenPrincipale::test(){
-    this->rechercheFile->setText("sd");
-
+                _session->supprimerTag(_session->getTagsCurrent());
+                refreshModeleTag_1();
+                refreshModeleTag();
+                refreshFileSelect();
+                refreshFileSelect_1();
+        }
 }
+
+
 // ----Fonctions------
 
-/*! \fn void refreshFileSelect()
-    \brief Raffraichit la sélection des fichiers
-*/
+
 void FenPrincipale::refreshFileSelect(){
 
     modeleFileSelect->clear();
@@ -442,9 +488,7 @@ void FenPrincipale::refreshFileSelect(){
     }
 }
 
-/*! \fn void refreshModeleTag()
-    \brief
-*/
+
 void FenPrincipale::refreshModeleTag(){
     modeleTag->clear();
     modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
@@ -462,9 +506,7 @@ void FenPrincipale::refreshModeleTag(){
     }
 }
 
-/*! \fn void refreshModeleTag_1()
-    \brief
-*/
+
 void FenPrincipale::refreshModeleTag_1(){
     modeleTag_1->clear();
     modeleTag_1->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
@@ -482,9 +524,7 @@ void FenPrincipale::refreshModeleTag_1(){
     }
 }
 
-/*! \fn void refreshFileSelect_1()
-    \brief
-*/
+
 void FenPrincipale::refreshFileSelect_1(){
     modeleFileSelect_1->clear();
     modeleFileSelect_1->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));

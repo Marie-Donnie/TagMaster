@@ -235,6 +235,7 @@ Tag* SessionActuel::getTagByName(std::string tagName){
     return t;
 }
 
+// Get un file by it's path
 File* SessionActuel::getFileByPath(std::string filePath){
     bool trouver=false;
     int i=0;
@@ -285,6 +286,66 @@ bool SessionActuel::removeFromFileCurrent2(std::string filePath){
         }
     }
     return trouver;
+}
+
+//Fusion Tag
+void SessionActuel::fusionTag(std::vector<Tag *> listTag, std::string newName){
+    Tag * newTag = new Tag();
+    newTag = newTag->fusion(listTag,newName);
+
+    bool ok=false;
+    int n=0;
+    for (int i=0;i<listTag.size();++i){
+        ok=false;
+        n=0;
+        while ( (n<this->_tags.size())&&(!ok)){
+            if(this->_tags.at(n)->egal(listTag.at(i))){
+                ok=true;
+                this->_tags.erase(_tags.begin()+n);
+            }else{
+                ++n;
+            }
+        }
+    }
+    this->_tags.push_back(newTag);
+    this->clearTagsCurrent();// Pour ne pas garder les tags supprimer dans la liste current
+}
+
+void SessionActuel::supprimerTag(std::vector<Tag *> listTag){
+
+    for (int i=0; i<listTag.size();++i){
+        bool ok=false;
+        int p=0;
+        Tag * tag= listTag.at(i);
+        std::vector<File*> listFile =tag->getFiles();
+        for (int n=0;n<listFile.size();++n){
+            listFile.at(n)->removeTag(listTag.at(i)->getTagName());
+        }
+        while ( (p<this->_tags.size())&&(!ok)){
+            if(this->_tags.at(p)->egal(listTag.at(i))){
+                ok=true;
+                this->_tags.erase(_tags.begin()+p);
+            }else{
+                ++p;
+            }
+        }
+    }
+    this->clearTagsCurrent();// Pour ne pas garder les tags supprimer dans la liste current
+}
+
+bool SessionActuel::existeTag(std::string tagName){
+    bool trouver=false;
+    int i=0;
+    Tag* t = new Tag(tagName);
+    while((i<this->_tags.size())&&(!trouver)){
+        if(this->_tags.at(i)->egal(t)){
+            trouver=true;
+        }else{
+            ++i;
+        }
+    }
+    return trouver;
+
 }
 
 // Rajoute les tagsCurrent aux filesCurrent
