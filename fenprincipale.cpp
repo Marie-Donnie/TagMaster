@@ -141,6 +141,7 @@ FenPrincipale::FenPrincipale()
     connect(viewR_1, SIGNAL(pressed(const QModelIndex &)),this, SLOT(setIndex(const QModelIndex &)));
 
     connect(viewL_1, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(fileDuTag(QModelIndex)));
+    connect(viewL_1,SIGNAL(clicked(const QModelIndex &)), this, SLOT(selectionTag(QModelIndex)));
 
     //Initialisation des boutons
     modeGestionFichier_1 = new QPushButton("Gestion de Fichiers");
@@ -368,10 +369,12 @@ void FenPrincipale::switchMode(){
         mainLayout->setCurrentIndex(1);
         refreshModeleTag_1();
         refreshFileSelect_1();
+        _session->clearTagsCurrent();
     }else{
         mainLayout->setCurrentIndex(0);
         refreshModeleTag();
         refreshFileSelect();
+        _session->clearTagsCurrent();
     }
 }
 
@@ -386,10 +389,25 @@ void FenPrincipale::fileDuTag(const QModelIndex &index){
             std::string string = cellText.toStdString();
             Tag* tag = _session->getTagByName(string);
             _session->clearFilesCurrent2();
+            _session->clearTagsCurrent();
             for (int i=0;i<tag->getFiles().size();++i){
                 _session->addFileToCurrent2(tag->getFiles().at(i));
             }
             refreshFileSelect_1();
+        }
+    }
+}
+
+
+void FenPrincipale::selectionTag(const QModelIndex &index){
+    if (index.isValid()){
+        if(index.column()==0){
+            QString cellText = index.data().toString();
+            std::string string = cellText.toStdString();
+            Tag* tag = _session->getTagByName(string);
+            _session->clearTagsCurrent();
+           _session->addTagToCurrent(tag);
+           std::cout<<"nom "<<_session->getTagsCurrent().at(0)->getTagName()<<std::endl;
         }
     }
 }

@@ -40,8 +40,10 @@ public:
     bool addFileToCurrent2(std::string fileName,std::string filePath);
     // Rajoute un fichier aux fichiers courants 2
     void addFileToCurrent2(File* f);
-    //Rajoute un tag courant, suppose que le tag est déjà dans la liste
+    //Rajoute un tag courant via son nom, suppose que le tag est déjà dans la liste
     void addTagToCurrent(std::string tagName);
+    //Rajoute un tag dans tag current
+    void addTagToCurrent(Tag* tag);
     //Enlève un tag de la liste de tags
     void removeTag(std::string tagName);
     //Clear tag courant

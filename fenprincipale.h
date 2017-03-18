@@ -112,6 +112,8 @@ public slots:
      void switchMode();// Change d'un mode à l'autre
      // Remplie fileCurrent2 avec les file du tag double clické et met à jours l'affichage
      void fileDuTag(const QModelIndex &index);
+     void selectionTag(const QModelIndex &index);
+
 
 
 public:
@@ -123,6 +125,7 @@ public:
     void refreshModeleTag();
     void refreshModeleTag_1();
     void refreshFileSelect_1();
+
 };
 
 #endif // FENPRINCIPALE_H
