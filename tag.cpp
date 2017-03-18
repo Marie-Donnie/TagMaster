@@ -89,7 +89,7 @@ bool Tag::addFile(File *file){
     }
     if(pasTrouver){
         this->_files.push_back(file);
-        this->_count+=1;
+        this->incrementCount(1);
     }
     return pasTrouver;
 }
@@ -98,6 +98,7 @@ bool Tag::addFile(File *file){
 void Tag::addFile(std::vector<File *> *files){
     for (int i=0;i<files->size();++i){
         this->addFile(files->at(i));
+
     }
 }
 
@@ -122,16 +123,15 @@ bool Tag::removeFile(std::string filePath){
 
 Tag* Tag::fusion(std::vector<Tag *> listTag, std::string newName){
     Tag *newTag = new Tag(newName);
-
     for ( int i =0; i<listTag.size();++i){
         newTag->addFile(&listTag.at(i)->getFiles());
-        newTag->incrementCount(listTag.at(i)->getCount());
         std::vector<File*> listFile = listTag.at(i)->getFiles();
         for (int n=0;n<listFile.size();++n){
-            newTag->addFile(listFile.at(n));
             listFile.at(n)->removeTag(listTag.at(i)->getTagName());
+            listFile.at(n)->addTag(newTag);
         }
     }
+    std::cout<<"ici"<<std::endl;
     return newTag;
 }
 

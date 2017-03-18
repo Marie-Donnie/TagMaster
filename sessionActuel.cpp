@@ -297,14 +297,18 @@ void SessionActuel::fusionTag(std::vector<Tag *> listTag, std::string newName){
     int n=0;
     for (int i=0;i<listTag.size();++i){
         ok=false;
+        n=0;
         while ( (n<this->_tags.size())&&(!ok)){
             if(this->_tags.at(n)->egal(listTag.at(i))){
                 ok=true;
                 this->_tags.erase(_tags.begin()+n);
+            }else{
+                ++n;
             }
         }
     }
     this->_tags.push_back(newTag);
+    this->clearTagsCurrent();// Pour ne pas garder les tags supprimer dans la liste current
 }
 
 // Rajoute les tagsCurrent aux filesCurrent

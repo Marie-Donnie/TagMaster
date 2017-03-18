@@ -157,6 +157,7 @@ FenPrincipale::FenPrincipale()
 
     QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(renommer_1,SIGNAL(clicked()),this,SLOT(slotRenommer()));
+    QObject::connect(fusionner_1,SIGNAL(clicked()),this,SLOT(slotFusionner()));
 
 
     //Initialisation des lineEdit
@@ -404,12 +405,21 @@ void FenPrincipale::fileDuTag(const QModelIndex &index){
 void FenPrincipale::selectionTag(const QModelIndex &index){
     if (index.isValid()){
         if(index.column()==0){
-            QString cellText = index.data().toString();
-            std::string string = cellText.toStdString();
-            Tag* tag = _session->getTagByName(string);
-            _session->clearTagsCurrent();
-           _session->addTagToCurrent(tag);
+            if((QApplication::keyboardModifiers().testFlag(Qt::ControlModifier) == true)){
+                QString cellText = index.data().toString();
+                std::string string = cellText.toStdString();
+                Tag* tag = _session->getTagByName(string);
+                _session->addTagToCurrent(tag);
+            }else{
+
+                QString cellText = index.data().toString();
+                std::string string = cellText.toStdString();
+                Tag* tag = _session->getTagByName(string);
+                _session->clearTagsCurrent();
+                _session->addTagToCurrent(tag);
+            }
         }
+
     }
 }
 
@@ -419,16 +429,29 @@ void FenPrincipale::slotRenommer(){
             bool ok = false;
             QString qTagName = QInputDialog::getText(this, "Renommer le Tag", "Rentrer le nouveau du tag",
                                                  QLineEdit::Normal, QString(), &ok);
-
             if(ok){
                 std::string tagName = qTagName.toStdString();
                 _session->getTagsCurrent().at(0)->setTagName(tagName);
                 refreshModeleTag_1();
                 refreshModeleTag();
             }
-
     }
+}
 
+void FenPrincipale::slotFusionner(){
+    if(_session->getTagsCurrent().size()>1){
+        bool ok = false;
+        QString qTagNewName = QInputDialog::getText(this, "Fusion de tag", "Rentrer le nom du tag résultant de la fusion",
+                                                    QLineEdit::Normal, QString(), &ok);
+        if(ok){
+            std::string tagNewName = qTagNewName.toStdString();
+            _session->fusionTag(_session->getTagsCurrent(),tagNewName);
+            refreshModeleTag_1();
+            refreshModeleTag();
+            refreshFileSelect();
+            refreshFileSelect_1();
+        }
+    }
 }
 
 void FenPrincipale::test(){

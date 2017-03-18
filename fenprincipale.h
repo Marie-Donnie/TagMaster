@@ -114,6 +114,7 @@ public slots:
      void fileDuTag(const QModelIndex &index);
      void selectionTag(const QModelIndex &index);
      void slotRenommer();
+     void slotFusionner();
 
 
 
