@@ -115,6 +115,7 @@ public slots:
      void selectionTag(const QModelIndex &index);
      void slotRenommer();
      void slotFusionner();
+     void slotSupprimer();
 
 
 

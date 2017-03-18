@@ -62,6 +62,8 @@ public:
     bool removeFromFileCurrent2(std::string filePath);
     //Fusion de Tag
     void fusionTag(std::vector<Tag*> listTag, std::string newName);
+    //Supprimer un ou plusieurs des Tag
+    void supprimerTag(std::vector<Tag*> listTag);
     // Rajoute les tagsCurrent aux filesCurrent
     void lieTagFile();
 

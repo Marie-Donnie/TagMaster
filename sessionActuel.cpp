@@ -311,6 +311,28 @@ void SessionActuel::fusionTag(std::vector<Tag *> listTag, std::string newName){
     this->clearTagsCurrent();// Pour ne pas garder les tags supprimer dans la liste current
 }
 
+void SessionActuel::supprimerTag(std::vector<Tag *> listTag){
+
+    for (int i=0; i<listTag.size();++i){
+        bool ok=false;
+        int p=0;
+        Tag * tag= listTag.at(i);
+        std::vector<File*> listFile =tag->getFiles();
+        for (int n=0;n<listFile.size();++n){
+            listFile.at(n)->removeTag(listTag.at(i)->getTagName());
+        }
+        while ( (p<this->_tags.size())&&(!ok)){
+            if(this->_tags.at(p)->egal(listTag.at(i))){
+                ok=true;
+                this->_tags.erase(_tags.begin()+p);
+            }else{
+                ++p;
+            }
+        }
+    }
+    this->clearTagsCurrent();// Pour ne pas garder les tags supprimer dans la liste current
+}
+
 // Rajoute les tagsCurrent aux filesCurrent
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){

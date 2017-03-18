@@ -161,6 +161,7 @@ FenPrincipale::FenPrincipale()
     QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(renommer_1,SIGNAL(clicked()),this,SLOT(slotRenommer()));
     QObject::connect(fusionner_1,SIGNAL(clicked()),this,SLOT(slotFusionner()));
+    QObject::connect(supprimer_1,SIGNAL(clicked()),this,SLOT(slotSupprimer()));
 
 
     //Initialisation des lineEdit
@@ -463,6 +464,17 @@ void FenPrincipale::slotFusionner(){
             refreshFileSelect_1();
         }
     }
+}
+
+void FenPrincipale::slotSupprimer(){
+    if(_session->getTagsCurrent().size()>=1){
+
+                _session->supprimerTag(_session->getTagsCurrent());
+                refreshModeleTag_1();
+                refreshModeleTag();
+                refreshFileSelect();
+                refreshFileSelect_1();
+        }
 }
 
 void FenPrincipale::test(){
