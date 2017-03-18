@@ -131,7 +131,7 @@ Tag* Tag::fusion(std::vector<Tag *> listTag, std::string newName){
             listFile.at(n)->addTag(newTag);
         }
     }
-    std::cout<<"ici"<<std::endl;
+
     return newTag;
 }
 

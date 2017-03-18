@@ -416,25 +416,37 @@ void FenPrincipale::slotRenommer(){
                                                  QLineEdit::Normal, QString(), &ok);
             if(ok){
                 std::string tagName = qTagName.toStdString();
-                _session->getTagsCurrent().at(0)->setTagName(tagName);
-                refreshModeleTag_1();
-                refreshModeleTag();
+                if(!_session->existeTag(tagName)){
+                    _session->getTagsCurrent().at(0)->setTagName(tagName);
+                    refreshModeleTag_1();
+                    refreshModeleTag();
+                }
             }
     }
 }
 
 void FenPrincipale::slotFusionner(){
+    bool testDuplication = false;
     if(_session->getTagsCurrent().size()>1){
         bool ok = false;
         QString qTagNewName = QInputDialog::getText(this, "Fusion de tag", "Rentrer le nom du tag résultant de la fusion",
                                                     QLineEdit::Normal, QString(), &ok);
         if(ok){
             std::string tagNewName = qTagNewName.toStdString();
-            _session->fusionTag(_session->getTagsCurrent(),tagNewName);
-            refreshModeleTag_1();
-            refreshModeleTag();
-            refreshFileSelect();
-            refreshFileSelect_1();
+            for (int i =0;i<_session->getTagsCurrent().size();++i){
+                if(_session->getTagsCurrent().at(i)->getTagName()==tagNewName){
+                    testDuplication=true; // Le tag résulant de la fusion a le même nom que un
+                                          // des tags fusionner ce qu'on autorise
+                }
+
+            }
+            if((!_session->existeTag(tagNewName))||(testDuplication)){// Evite 2 tag différent avant le même nom
+                _session->fusionTag(_session->getTagsCurrent(),tagNewName);
+                refreshModeleTag_1();
+                refreshModeleTag();
+                refreshFileSelect();
+                refreshFileSelect_1();
+            }
         }
     }
 }

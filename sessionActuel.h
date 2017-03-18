@@ -64,6 +64,8 @@ public:
     void fusionTag(std::vector<Tag*> listTag, std::string newName);
     //Supprimer un ou plusieurs des Tag
     void supprimerTag(std::vector<Tag*> listTag);
+    //Dit si le tag existe déjà
+    bool existeTag(std::string tagName);
     // Rajoute les tagsCurrent aux filesCurrent
     void lieTagFile();
 

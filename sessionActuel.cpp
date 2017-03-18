@@ -333,6 +333,21 @@ void SessionActuel::supprimerTag(std::vector<Tag *> listTag){
     this->clearTagsCurrent();// Pour ne pas garder les tags supprimer dans la liste current
 }
 
+bool SessionActuel::existeTag(std::string tagName){
+    bool trouver=false;
+    int i=0;
+    Tag* t = new Tag(tagName);
+    while((i<this->_tags.size())&&(!trouver)){
+        if(this->_tags.at(i)->egal(t)){
+            trouver=true;
+        }else{
+            ++i;
+        }
+    }
+    return trouver;
+
+}
+
 // Rajoute les tagsCurrent aux filesCurrent
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){
