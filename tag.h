@@ -34,6 +34,7 @@ public:
     bool addFile(File *file);
     void addFile(std::vector<File*> *files);//Rajoute plusieurs fichiers en même temps
     bool removeFile(std::string filePath); //Enlève un fichier du tag. Renvoie true si le fichier était dans la liste de fichiers du tag
+    Tag* fusion(std::vector<Tag*> listTag, std::string newName);
     bool egal(Tag *tag); // Même nom = même tag
 
 };

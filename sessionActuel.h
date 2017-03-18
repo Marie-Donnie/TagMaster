@@ -60,6 +60,8 @@ public:
     bool removeFromFileCurrent(std::string filePath);
     //Retire un fichier des fichiers courants et renvoie true si ça réussit
     bool removeFromFileCurrent2(std::string filePath);
+    //Fusion de Tag
+    void fusionTag(std::vector<Tag*> listTag, std::string newName);
     // Rajoute les tagsCurrent aux filesCurrent
     void lieTagFile();
 

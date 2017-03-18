@@ -118,6 +118,23 @@ bool Tag::removeFile(std::string filePath){
     return trouver;
 }
 
+//Fusione les tags dans un nouveau
+
+Tag* Tag::fusion(std::vector<Tag *> listTag, std::string newName){
+    Tag *newTag = new Tag(newName);
+
+    for ( int i =0; i<listTag.size();++i){
+        newTag->addFile(&listTag.at(i)->getFiles());
+        newTag->incrementCount(listTag.at(i)->getCount());
+        std::vector<File*> listFile = listTag.at(i)->getFiles();
+        for (int n=0;n<listFile.size();++n){
+            newTag->addFile(listFile.at(n));
+            listFile.at(n)->removeTag(listTag.at(i)->getTagName());
+        }
+    }
+    return newTag;
+}
+
 //
 bool Tag::egal(Tag *tag){
     return this->_tagName==tag->getTagName();

@@ -288,6 +288,25 @@ bool SessionActuel::removeFromFileCurrent2(std::string filePath){
     return trouver;
 }
 
+//Fusion Tag
+void SessionActuel::fusionTag(std::vector<Tag *> listTag, std::string newName){
+    Tag * newTag = new Tag();
+    newTag = newTag->fusion(listTag,newName);
+
+    bool ok=false;
+    int n=0;
+    for (int i=0;i<listTag.size();++i){
+        ok=false;
+        while ( (n<this->_tags.size())&&(!ok)){
+            if(this->_tags.at(n)->egal(listTag.at(i))){
+                ok=true;
+                this->_tags.erase(_tags.begin()+n);
+            }
+        }
+    }
+    this->_tags.push_back(newTag);
+}
+
 // Rajoute les tagsCurrent aux filesCurrent
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){
