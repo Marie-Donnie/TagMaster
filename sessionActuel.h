@@ -170,13 +170,13 @@ public:
         \warning clear les tags current
     */
     void supprimerTag(std::vector<Tag*> listTag);
-    /*! \fn bool existeTag(std::string tagName);
+    /*! \fn bool existeTag(std::string tagName)
         \brief Dit si le tag existe déjà
         \param std::string tagName : le nom du tag d'on on vérifie l'existance
         \warning clear les tags current
     */
     bool existeTag(std::string tagName);
-    /*! \fn bool existeTag(std::string tagName);
+    /*! \fn bool existeTag(std::string tagName)
         \brief Rajoute les tagsCurrent aux filesCurrent et et vice versa. Les fichier on maitenant ces tag et
         les tags ces fichiers liant les 2 entres eux.
         \warning clear les tags current
