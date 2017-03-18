@@ -407,10 +407,10 @@ void FenPrincipale::selectionTag(const QModelIndex &index){
             Tag* tag = _session->getTagByName(string);
             _session->clearTagsCurrent();
            _session->addTagToCurrent(tag);
-           std::cout<<"nom "<<_session->getTagsCurrent().at(0)->getTagName()<<std::endl;
         }
     }
 }
+
 
 void FenPrincipale::test(){
     this->rechercheFile->setText("sd");

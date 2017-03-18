@@ -189,6 +189,10 @@ void SessionActuel::addTagToCurrent(std::string tagName){
         }
     }
 }
+//Rajoute un au tag courant, supposant que le tag est déjà dans la liste
+void SessionActuel::addTagToCurrent(Tag *tag){
+    this->_tagsCurrent.push_back(tag);
+}
 
 //Enlève un tag de la liste de tags
 void SessionActuel::removeTag(std::string tagName){
