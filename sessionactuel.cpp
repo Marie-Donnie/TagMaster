@@ -135,7 +135,7 @@ bool SessionActuel::addFileToCurrent(std::string fileName, std::string filePath)
     return pasDansCurrent;
 }
 
-// Rajoute un file aux current files
+// Rajoute un file aux current files 2
 bool SessionActuel::addFileToCurrent2(std::string fileName, std::string filePath){
     File * file= new File(fileName,filePath);
     bool pasTrouver=true;
@@ -167,6 +167,11 @@ bool SessionActuel::addFileToCurrent2(std::string fileName, std::string filePath
         this->_files.push_back(file);
     }
     return pasDansCurrent;
+}
+
+// Rajoute un file aux current files 2
+void SessionActuel::addFileToCurrent2(File *f){
+    this->_filesCurrent2.push_back(f);
 }
 
 //Rajoute un au tag current, suppose que le tag est déjà dans la liste

@@ -134,6 +134,11 @@ FenPrincipale::FenPrincipale()
     viewL_1->setModel(modeleTag_1);
     viewR_1->setModel(modeleFileSelect_1);
 
+    connect(viewL_1, SIGNAL(pressed(const QModelIndex &)),this, SLOT(setIndex(const QModelIndex &)));
+    connect(viewR_1, SIGNAL(pressed(const QModelIndex &)),this, SLOT(setIndex(const QModelIndex &)));
+
+    connect(viewL_1, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(fileDuTag(QModelIndex)));
+
     //Initialisation des boutons
     modeGestionFichier_1 = new QPushButton("Gestion de Fichier");
     renommer_1 = new QPushButton("Renommer");
@@ -142,7 +147,7 @@ FenPrincipale::FenPrincipale()
     fichierAssocie_1 = new QPushButton("Fichiers associés aux tag");
 
     modeGestionFichier_1->setToolTip("Mode Pour Géré vos Fichiers");
-    renommer_1->setToolTip("Renomme li fichier séléctionné");
+    renommer_1->setToolTip("Renomme le fichier séléctionné");
     fusionner_1->setToolTip("Fusionne les tags séléctionné");
     fichierAssocie_1->setToolTip(("Affiche les fichiers associé aux tags"));
 
@@ -336,6 +341,21 @@ void FenPrincipale::switchMode(){
     }
 }
 
+void FenPrincipale::fileDuTag(const QModelIndex &index){
+    if (index.isValid()){
+        if(index.column()==0){
+            QString cellText = index.data().toString();
+            std::string string = cellText.toStdString();
+            Tag* tag = _session->getTagByName(string);
+            _session->clearFilesCurrent2();
+            for (int i=0;i<tag->getFiles().size();++i){
+                _session->addFileToCurrent2(tag->getFiles().at(i));
+            }
+            refreshFileSelect_1();
+        }
+    }
+}
+
 void FenPrincipale::test(){
     this->rechercheFile->setText("sd");
 
@@ -416,3 +436,4 @@ void FenPrincipale::refreshFileSelect_1(){
         modeleFileSelect_1->setItem(i,2,itemTags);
     }
 }
+

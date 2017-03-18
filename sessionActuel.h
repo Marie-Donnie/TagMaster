@@ -38,6 +38,8 @@ public:
     bool addFileToCurrent(std::string fileName,std::string filePath);
     // Rajoute un file aux current files 2
     bool addFileToCurrent2(std::string fileName,std::string filePath);
+    // Rajoute un file aux current files 2
+    void addFileToCurrent2(File* f);
     //Rajoute un au tag current, suppose que le tag est déjà dans la liste
     void addTagToCurrent(std::string tagName);
     //Enlève un tag de la liste de tag

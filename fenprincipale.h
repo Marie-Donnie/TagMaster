@@ -105,6 +105,8 @@ public slots:
      void menuFileSelectionRequested(const QPoint &pos);
      void setIndex(const QModelIndex &indexPos);
      void switchMode();// Change d'un mode à l'autre
+     // Remplie fileCurrent2 avec les file du tag double clické et met à jours l'affichage
+     void fileDuTag(const QModelIndex &index);
 
 
 public:
