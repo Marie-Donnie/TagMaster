@@ -10,7 +10,11 @@ class Tag;
 #include <iostream>
 
 
+/*! \class File
+    \brief La classe pour traiter les fichiers
 
+    Contient le nom du fichier, son adresse sur la machine (chemin absolu), et une liste de tags associés
+*/
 class File{
 private:
     std::string _fileName;

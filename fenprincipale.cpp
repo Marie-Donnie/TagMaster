@@ -61,7 +61,7 @@ FenPrincipale::FenPrincipale()
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
 
-    modeTag->setToolTip("Mode pour géré vos Tags");
+    modeTag->setToolTip("Mode pour gérer vos Tags");
     mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");
     ordreLexico->setToolTip("Trie les tags par ordre lexicographique");
     associateFile->setToolTip("Montre les fichiers associés au tag");
