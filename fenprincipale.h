@@ -26,7 +26,12 @@
 
 #include "sessionActuel.h"
 
-// attribut avec _1 concerne la fenêtre de géstion de tag (1 étant l'index du widget dans le stacked layout)
+/*! \class FenPrincipale
+    \brief La classe pour la fenêtre principale
+
+    Hérite de QMainWindow. Les attributs avec _1 concernent la fenêtre de gestion de tags (1 étant l'index du widget dans le stacked layout)
+*/
+
 class FenPrincipale : public QMainWindow
 {
      Q_OBJECT

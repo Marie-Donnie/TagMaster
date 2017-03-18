@@ -1,5 +1,8 @@
 #include "fenprincipale.h"
 
+/*! \fn FenPrincipale()
+    \brief Constructeur de la fenêtre FenPrincipale.
+*/
 FenPrincipale::FenPrincipale()
 {
     this->_session= new SessionActuel();
@@ -199,16 +202,26 @@ FenPrincipale::FenPrincipale()
 
 // -----Getter and Setter---------
 
+/*! \fn SessionActuel* getSession()
+    \brief Accesseur de l'attribut session de FenPrincipale.
+    \return La session actuelle de FenPrincipale
+*/
 SessionActuel *FenPrincipale::getSession(){
     return this->_session;
 }
 
+/*! \fn void setSession(SessionActuel *session)
+    \brief Règle la session de FenPrincipale.
+    \param session le pointeur vers la session qu'on veut donner à FenPrincipale
+*/
 void FenPrincipale::setSession(SessionActuel *session){
     this->_session=session;
 }
 
 //------Slots fonctions------
-
+/*! \fn void addTag()
+    \brief Ajoute un tag à la fenêtre FenPrincipale.
+*/
 void FenPrincipale::addTag(){
 
     std::string tagName = creeTag->text().toStdString();
@@ -225,7 +238,10 @@ void FenPrincipale::addTag(){
     creeTag->clear();
 }
 
-
+/*! \fn void lieTagFile(const QModeIndex &index)
+    \brief
+    \param index l'index Qt
+*/
 void FenPrincipale::lieTagFile(const QModelIndex &index){
     int col = index.column();
     int row = index.row();
@@ -246,6 +262,10 @@ void FenPrincipale::lieTagFile(const QModelIndex &index){
     }
 }
 
+/*! \fn void addFileToSelection(const QModelIndex &index)
+    \brief Ajoute à la liste des fichiers sélectionnés le fichier à l'index index.
+    \param index l'index Qt
+*/
 void FenPrincipale::addFileToSelection(const QModelIndex &index){
     if (index.isValid()) {
         QIcon qIcon=modele->fileIcon(index);
@@ -274,6 +294,9 @@ void FenPrincipale::addFileToSelection(const QModelIndex &index){
     }
 }
 
+/*! \fn void clearSelectionSignal()
+    \brief
+*/
 void FenPrincipale::clearSelectionSignal(){
     modeleFileSelect->clear();
     _session->clearFilesCurrent();
@@ -282,6 +305,10 @@ void FenPrincipale::clearSelectionSignal(){
     modeleFileSelect->setHorizontalHeaderItem(1,new QStandardItem("Tags"));
 }
 
+/*! \fn void menuFileSelectionRequested(const QPoint &pos)
+    \brief
+    \param pos la position QPoint
+*/
 void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
 
     QPoint globalPos = viewRB->mapToGlobal(pos);
@@ -325,10 +352,17 @@ void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
     }
 }
 
+/*! \fn void setIndex(const QModelIndex &indexPos)
+    \brief Règle l'index à l'index donné
+    \param index l'index QModel
+*/
 void FenPrincipale::setIndex(const QModelIndex & indexPos){
     _index=indexPos;
 }
 
+/*! \fn void switchMode()
+    \brief Change le mode d'affichage
+*/
 void FenPrincipale::switchMode(){
     if(mainLayout->currentIndex()==0){
         mainLayout->setCurrentIndex(1);
@@ -341,6 +375,10 @@ void FenPrincipale::switchMode(){
     }
 }
 
+/*! \fn void fileDuTag(const QModelIndex &index)
+    \brief Affiche les fichiers liés au tag à l'index donné
+    \param index l'index QtModel
+*/
 void FenPrincipale::fileDuTag(const QModelIndex &index){
     if (index.isValid()){
         if(index.column()==0){
@@ -360,8 +398,11 @@ void FenPrincipale::test(){
     this->rechercheFile->setText("sd");
 
 }
-// ----Fonction------
+// ----Fonctions------
 
+/*! \fn void refreshFileSelect()
+    \brief Raffraichit la sélection des fichiers
+*/
 void FenPrincipale::refreshFileSelect(){
 
     modeleFileSelect->clear();
@@ -383,6 +424,9 @@ void FenPrincipale::refreshFileSelect(){
     }
 }
 
+/*! \fn void refreshModeleTag()
+    \brief
+*/
 void FenPrincipale::refreshModeleTag(){
     modeleTag->clear();
     modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
@@ -400,6 +444,9 @@ void FenPrincipale::refreshModeleTag(){
     }
 }
 
+/*! \fn void refreshModeleTag_1()
+    \brief
+*/
 void FenPrincipale::refreshModeleTag_1(){
     modeleTag_1->clear();
     modeleTag_1->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
@@ -417,6 +464,9 @@ void FenPrincipale::refreshModeleTag_1(){
     }
 }
 
+/*! \fn void refreshFileSelect_1()
+    \brief
+*/
 void FenPrincipale::refreshFileSelect_1(){
     modeleFileSelect_1->clear();
     modeleFileSelect_1->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
