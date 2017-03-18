@@ -149,7 +149,7 @@ void FenPrincipale::addTag(){
     creeTag->clear();
 }
 
-//TODO : Pas Fini
+
 void FenPrincipale::lieTagFile(const QModelIndex &index){
     int col = index.column();
     int row = index.row();

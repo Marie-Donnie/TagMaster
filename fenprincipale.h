@@ -33,6 +33,7 @@ private :
     SessionActuel* _session;
     QModelIndex _index;// Garde en mémoire ou on click dans les tables pour certaines opérations
 
+
     //Widget général
     QWidget *zoneCentrale;
 
