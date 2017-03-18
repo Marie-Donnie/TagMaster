@@ -26,6 +26,7 @@
 
 #include "sessionActuel.h"
 
+// attribut avec _1 concerne la fenêtre de géstion de tag (1 étant l'index du widget dans le stacked layout)
 class FenPrincipale : public QMainWindow
 {
      Q_OBJECT
@@ -36,19 +37,27 @@ private :
 
     //Widget général
     QWidget *zoneCentrale;
+    QWidget *zoneCentraleFileMode;
+    QWidget *zoneCentraleTagMode_1;
 
     //QStrinList
-    QStringList listTag;
+    //QStringList listTag;
 
     //View
     QTableView* viewL;
     QTreeView* viewRH;
     QTableView* viewRB;
 
+    QTableView *viewL_1;
+    QTableView *viewR_1;
+
     //Model
     QDirModel *modele;
     QStandardItemModel *modeleTag;
     QStandardItemModel* modeleFileSelect;
+
+    QStandardItemModel * modeleTag_1;
+    QStandardItemModel *modeleFileSelect_1;
 
     //PushButton
     QPushButton *modeTag;
@@ -59,16 +68,31 @@ private :
     QPushButton *multiSelection;
     QPushButton *clearSelection; //Clear la liste de file séléctionnner
 
+    QPushButton* modeGestionFichier_1;
+    QPushButton* renommer_1;
+    QPushButton* fusionner_1;
+    QPushButton* supprimer_1;
+    QPushButton* fichierAssocie_1;
+
     //LineEdit
     QLineEdit* creeTag;
     QLineEdit* rechercheFile;
 
+    QLineEdit* creeTag_1;
+
     //Layout
+    QStackedLayout *mainLayout;
+
     QGridLayout *layout;
     QGridLayout *layoutLeft;
     QGridLayout *layoutRight;
     QGridLayout *layoutCentral; // Bloc avec Ajouter Tag(s)
     QGridLayout *layoutCentral2;// Bloc avec Mode multi Séléction
+
+    QGridLayout *layout_1;
+    QGridLayout *layoutLeft_1;
+    QGridLayout *layoutRight_1;
+    QGridLayout *layoutCentral_1;
 
 
 
@@ -80,6 +104,7 @@ public slots:
      void test();
      void menuFileSelectionRequested(const QPoint &pos);
      void setIndex(const QModelIndex &indexPos);
+     void switchMode();// Change d'un mode à l'autre
 
 
 public:

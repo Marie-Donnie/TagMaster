@@ -4,6 +4,14 @@ FenPrincipale::FenPrincipale()
 {
     this->_session= new SessionActuel();
     zoneCentrale = new QWidget;
+    zoneCentraleFileMode = new QWidget;
+    zoneCentraleTagMode_1 = new QWidget;
+
+    mainLayout = new QStackedLayout();
+
+    //-------------------------------------------------
+    //-----Partie sur la Gestion de fichier------------
+    //-------------------------------------------------
 
    // Les 2 liste du mode simple séléction
     viewL = new QTableView();
@@ -28,14 +36,12 @@ FenPrincipale::FenPrincipale()
     modeleFileSelect = new QStandardItemModel();
 
     modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
-    modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre fichier") );
+    modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre de fichiers"));
 
 
     modeleFileSelect->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
     modeleFileSelect->setHorizontalHeaderItem(1, new QStandardItem("Path"));
     modeleFileSelect->setHorizontalHeaderItem(2,new QStandardItem("Tags"));
-
-
 
     viewRH->setModel(modele);
     viewRB->setModel(modeleFileSelect);
@@ -49,10 +55,8 @@ FenPrincipale::FenPrincipale()
     multiSelection= new QPushButton("Mode Multi Séléction");
     clearSelection = new QPushButton("Clear Séléction ->");
 
-    QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(test()));
+    QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
-
-
 
     modeTag->setToolTip("Mode pour géré vos Tags");
     mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");
@@ -60,7 +64,6 @@ FenPrincipale::FenPrincipale()
     associateFile->setToolTip("Montre les fichiers associés au tag");
     multiSelection->setToolTip("Mode pour ajouter des Tags à plusieur fichier en même temps");
     clearSelection->setToolTip("Clear la fenêtre des files actuellement séléctionnés");
-
 
     //Initialisation des lineEdit
     creeTag = new QLineEdit();
@@ -82,26 +85,18 @@ FenPrincipale::FenPrincipale()
     layoutCentral = new QGridLayout; // Bloc avec Millieu Haut
     layoutCentral2= new QGridLayout;// Bloc avec Mode multi Séléction
 
-
-
     // Remplissage du layout left
     layoutLeft->addWidget(viewL,0,0);
-
     // Remplissage du layout right
     layoutRight->addWidget(viewRH,0,0,1,1);
     layoutRight->addWidget(viewRB,1,0,2,1);
-
-
     // Remplissage du layout centrale
     layoutCentral->addWidget(mostUse,0,0);
     layoutCentral->addWidget(ordreLexico,1,0);
     layoutCentral->addWidget(associateFile,3,0,2,1);
-
     // Remplissage du layout centrale 2
     layoutCentral2->addWidget(clearSelection,0,0);
     layoutCentral2->addWidget(multiSelection,1,0);
-
-
     // Remplissage du layout principale
     layout->addWidget(creeTag,0,0);
     layout-> addWidget(modeTag,0,1);
@@ -111,13 +106,89 @@ FenPrincipale::FenPrincipale()
     layout->addLayout(layoutCentral2,3,1);
     layout->addLayout(layoutRight,1,2,3,1);
 
+    //-------------------------------------------------
+    //-----Partie sur la Gestion de tag----------------
+    //-------------------------------------------------
 
+    //Les view-------------
+    viewL_1 = new QTableView;
+    viewR_1 = new QTableView;
 
+    viewL_1->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    viewR_1->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    viewL_1->setContextMenuPolicy(Qt::CustomContextMenu);
+    viewR_1->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    //Les models-----------
+
+    modeleTag_1 = new QStandardItemModel;
+    modeleFileSelect_1 = new QStandardItemModel;
+
+    modeleTag_1->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
+    modeleTag_1->setHorizontalHeaderItem(1, new QStandardItem("Nombre de fichiers") );
+
+    modeleFileSelect_1->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
+    modeleFileSelect_1->setHorizontalHeaderItem(1, new QStandardItem("Path"));
+    modeleFileSelect_1->setHorizontalHeaderItem(2,new QStandardItem("Tags"));
+
+    viewL_1->setModel(modeleTag_1);
+    viewR_1->setModel(modeleFileSelect_1);
+
+    //Initialisation des boutons
+    modeGestionFichier_1 = new QPushButton("Gestion de Fichier");
+    renommer_1 = new QPushButton("Renommer");
+    fusionner_1 = new QPushButton("Fusionner");
+    supprimer_1 = new QPushButton("Supprimer");
+    fichierAssocie_1 = new QPushButton("Fichiers associés aux tag");
+
+    modeGestionFichier_1->setToolTip("Mode Pour Géré vos Fichiers");
+    renommer_1->setToolTip("Renomme li fichier séléctionné");
+    fusionner_1->setToolTip("Fusionne les tags séléctionné");
+    fichierAssocie_1->setToolTip(("Affiche les fichiers associé aux tags"));
+
+    QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
+
+    //Initialisation des lineEdit
+    creeTag_1 = new QLineEdit;
+
+    creeTag_1->setPlaceholderText("Crée tag");
+    creeTag->setToolTip("Appuyer sur entrer pour crée le tag");
+
+    //Initialisation des layout
+    layout_1 = new QGridLayout;
+    layoutLeft_1 = new QGridLayout;
+    layoutCentral_1 = new QGridLayout;
+    layoutRight_1 = new QGridLayout;
+
+    // Remplissage du layout left
+    layoutLeft_1->addWidget(viewL_1,0,0);
+    // Remplissage du layout right
+    layoutRight_1->addWidget(viewR_1,0,0);
+    // Remplissage du layout centrale
+    layoutCentral_1->addWidget(renommer_1,0,0);
+    layoutCentral_1->addWidget(fusionner_1,1,0);
+    layoutCentral_1->addWidget(supprimer_1,2,0);
+    layoutCentral_1->addWidget(fichierAssocie_1,3,0);
+   // Remplissage du layout principale
+    layout_1->addWidget(creeTag_1,0,0);
+    layout_1-> addWidget(modeGestionFichier_1,0,1);
+    layout_1->addLayout(layoutLeft_1,1,0,3,1);
+    layout_1->addLayout(layoutCentral_1,1,1);
+    layout_1->addLayout(layoutRight_1,1,2,3,1);
+
+    //-----------------------------
+    //--------Partie Commune-------
+    //-----------------------------
     //Définition du layout comme zone central
-     zoneCentrale->setLayout(layout);
+    zoneCentraleFileMode->setLayout(layout);
+    zoneCentraleTagMode_1->setLayout(layout_1);
+    mainLayout->insertWidget(0,zoneCentraleFileMode);
+    mainLayout->insertWidget(1,zoneCentraleTagMode_1);
+    zoneCentrale->setLayout(mainLayout);
+    mainLayout->setCurrentIndex(0);
 
-      //Zone central devient la zone central du widget
-      setCentralWidget(zoneCentrale);
+    //Zone central devient la zone central du widget
+    setCentralWidget(zoneCentrale);
 }
 
 
@@ -168,8 +239,6 @@ void FenPrincipale::lieTagFile(const QModelIndex &index){
             refreshFileSelect();
         }
     }
-    std::cout<<" size "<<_session->getFilesCurrent().size()<<std::endl;
-
 }
 
 void FenPrincipale::addFileToSelection(const QModelIndex &index){
@@ -255,6 +324,14 @@ void FenPrincipale::setIndex(const QModelIndex & indexPos){
     _index=indexPos;
 }
 
+void FenPrincipale::switchMode(){
+    if(mainLayout->currentIndex()==0){
+        mainLayout->setCurrentIndex(1);
+    }else{
+        mainLayout->setCurrentIndex(0);
+    }
+}
+
 void FenPrincipale::test(){
     this->rechercheFile->setText("sd");
 
@@ -285,7 +362,7 @@ void FenPrincipale::refreshFileSelect(){
 void FenPrincipale::refreshModeleTag(){
     modeleTag->clear();
     modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
-    modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre fichier") );
+    modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre de fichiers") );
 
     for (int i=0;i<_session->getTags().size();++i){
 
