@@ -25,10 +25,22 @@ public:
 
     File();
     File(std::string name, std::string adress);
-
+    /*! \fn string getFileName()
+        \brief Renvoie le nom du fichier
+        \return Le nom du fichier
+    */
     std::string getFileName();
+    /*! \fn string getFileAdress()
+        \brief Renvoie l'adresse du fichier
+        \return L'adresse du fichier
+    */
     std::string getFileAdress();
+    /*! \fn vector<Tag*> getTags()
+        \brief Renvoie les tags associés au fichier
+        \return Les tags associés au fichier
+    */
     std::vector<Tag*> getTags();
+
 
     void setFileName(std::string fileName);
     void setFileAdress(std::string fileAdress);
