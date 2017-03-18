@@ -235,6 +235,7 @@ Tag* SessionActuel::getTagByName(std::string tagName){
     return t;
 }
 
+// Get un file by it's path
 File* SessionActuel::getFileByPath(std::string filePath){
     bool trouver=false;
     int i=0;

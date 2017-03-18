@@ -156,6 +156,8 @@ FenPrincipale::FenPrincipale()
     fichierAssocie_1->setToolTip(("Affiche les fichiers associés aux tags"));
 
     QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
+    QObject::connect(renommer_1,SIGNAL(clicked()),this,SLOT(slotRenommer()));
+
 
     //Initialisation des lineEdit
     creeTag_1 = new QLineEdit;
@@ -411,6 +413,23 @@ void FenPrincipale::selectionTag(const QModelIndex &index){
     }
 }
 
+void FenPrincipale::slotRenommer(){
+
+    if(_session->getTagsCurrent().size()==1){
+            bool ok = false;
+            QString qTagName = QInputDialog::getText(this, "Renommer le Tag", "Rentrer le nouveau du tag",
+                                                 QLineEdit::Normal, QString(), &ok);
+
+            if(ok){
+                std::string tagName = qTagName.toStdString();
+                _session->getTagsCurrent().at(0)->setTagName(tagName);
+                refreshModeleTag_1();
+                refreshModeleTag();
+            }
+
+    }
+
+}
 
 void FenPrincipale::test(){
     this->rechercheFile->setText("sd");
