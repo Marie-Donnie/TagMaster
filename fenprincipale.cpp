@@ -166,6 +166,8 @@ FenPrincipale::FenPrincipale()
     creeTag_1->setPlaceholderText("Crée tag");
     creeTag->setToolTip("Appuyez sur entrée pour créer le tag");
 
+     QObject::connect(creeTag_1,SIGNAL(returnPressed()),this,SLOT(addTag()));
+
     //Initialisation des layout
     layout_1 = new QGridLayout;
     layoutLeft_1 = new QGridLayout;
@@ -227,8 +229,13 @@ void FenPrincipale::setSession(SessionActuel *session){
     \brief Ajoute un tag à la fenêtre FenPrincipale.
 */
 void FenPrincipale::addTag(){
+     std::string tagName;
+    if(mainLayout->currentIndex()==0){
+         tagName = creeTag->text().toStdString();
+    }else{
+         tagName = creeTag_1->text().toStdString();
+    }
 
-    std::string tagName = creeTag->text().toStdString();
     if(this->_session->addTag(tagName)){
         Tag* tag = this->_session->getTagByName(tagName);
         QStandardItem* itemName= new QStandardItem(QString::fromStdString(tag->getTagName()));
@@ -237,9 +244,10 @@ void FenPrincipale::addTag(){
         list.push_back(itemName);
         list.push_back(itemCount);
         modeleTag->appendRow(list);
-
+        refreshModeleTag_1();
     }
     creeTag->clear();
+    creeTag_1->clear();
 }
 
 /*! \fn void lieTagFile(const QModeIndex &index)
