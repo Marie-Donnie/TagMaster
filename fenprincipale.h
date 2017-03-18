@@ -113,6 +113,7 @@ public slots:
      // Remplie fileCurrent2 avec les file du tag double clické et met à jours l'affichage
      void fileDuTag(const QModelIndex &index);
      void selectionTag(const QModelIndex &index);
+     void signalRenommer();
 
 
 
