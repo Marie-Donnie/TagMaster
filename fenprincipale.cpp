@@ -327,8 +327,10 @@ void FenPrincipale::setIndex(const QModelIndex & indexPos){
 void FenPrincipale::switchMode(){
     if(mainLayout->currentIndex()==0){
         mainLayout->setCurrentIndex(1);
+        refreshModeleTag_1();
     }else{
         mainLayout->setCurrentIndex(0);
+        refreshModeleTag();
     }
 }
 
@@ -373,5 +375,22 @@ void FenPrincipale::refreshModeleTag(){
 
         modeleTag->setItem(i,0,itemTagName);
         modeleTag->setItem(i,1,itemCount);
+    }
+}
+
+void FenPrincipale::refreshModeleTag_1(){
+    modeleTag_1->clear();
+    modeleTag_1->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
+    modeleTag_1->setHorizontalHeaderItem(1, new QStandardItem("Nombre de fichiers") );
+
+    for (int i=0;i<_session->getTags().size();++i){
+
+        std::string tagName = _session->getTags().at(i)->getTagName();
+
+        QStandardItem* itemTagName = new QStandardItem(QString::fromStdString(tagName));
+        QStandardItem* itemCount= new QStandardItem(QString::number(_session->getTags().at(i)->getCount()));
+
+        modeleTag_1->setItem(i,0,itemTagName);
+        modeleTag_1->setItem(i,1,itemCount);
     }
 }

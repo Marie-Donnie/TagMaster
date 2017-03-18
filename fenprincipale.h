@@ -114,6 +114,8 @@ public:
     void setSession( SessionActuel *session);
     void refreshFileSelect();
     void refreshModeleTag();
+    void refreshModeleTag_1();
+    void refreshFileSelect_1();
 };
 
 #endif // FENPRINCIPALE_H

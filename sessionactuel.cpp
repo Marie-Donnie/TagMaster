@@ -7,6 +7,7 @@ SessionActuel::SessionActuel()
     this->_files= std::vector<File*>();
     this->_tags = std::vector<Tag*>();
     this->_filesCurrent= std::vector<File*>();
+    this->_filesCurrent2= std::vector<File*>();
     this->_tagsCurrent = std::vector<Tag*>();
 
 }
@@ -24,6 +25,10 @@ std::vector<File*>& SessionActuel::getFilesCurrent(){
     return this->_filesCurrent;
 }
 
+std::vector<File*>& SessionActuel::getFilesCurrent2(){
+    return this->_filesCurrent;
+}
+
 std::vector<Tag*> SessionActuel::getTagsCurrent(){
     return this->_tagsCurrent;
 }
@@ -37,6 +42,10 @@ void SessionActuel::setTags(std::vector<Tag *> &tags){
 }
 
 void SessionActuel::setFilesCurrent(std::vector<File *> &files){
+    this->_filesCurrent=files;
+}
+
+void SessionActuel::setFilesCurrent2(std::vector<File *> &files){
     this->_filesCurrent=files;
 }
 
@@ -126,6 +135,40 @@ bool SessionActuel::addFileToCurrent(std::string fileName, std::string filePath)
     return pasDansCurrent;
 }
 
+// Rajoute un file aux current files
+bool SessionActuel::addFileToCurrent2(std::string fileName, std::string filePath){
+    File * file= new File(fileName,filePath);
+    bool pasTrouver=true;
+    bool pasDansCurrent=true;
+    int i=0;
+
+    while((i<this->_files.size())&&(pasTrouver)){
+        if(file->egal(this->_files.at(i))){
+            pasTrouver=false;
+            //Le file existe déjà dans notre liste on le prend et on le rajoute au current
+            //Si il n'est pas encore dedans
+            for (int n=0;n<this->_filesCurrent2.size();++n){
+                if(file->egal(this->_filesCurrent2.at(n))){
+                    pasDansCurrent=false;
+                }
+            }
+            if(pasDansCurrent){
+                this->_filesCurrent2.push_back(this->_files.at(i));
+            }
+
+        }else{
+            ++i;
+        }
+    }
+    if(pasTrouver){
+        //Le file n'était pas encore dans notre liste de file :
+        //on rajoute celui qu'on vient de  crée au current
+        this->_filesCurrent2.push_back(file);
+        this->_files.push_back(file);
+    }
+    return pasDansCurrent;
+}
+
 //Rajoute un au tag current, suppose que le tag est déjà dans la liste
 void SessionActuel::addTagToCurrent(std::string tagName){
     int i=0;
@@ -162,6 +205,10 @@ void SessionActuel::clearFilesCurrent(){
     this->_filesCurrent.clear();
 }
 
+//Clear file current2
+void SessionActuel::clearFilesCurrent2(){
+    this->_filesCurrent2.clear();
+}
 //Get  tag by his name
 Tag* SessionActuel::getTagByName(std::string tagName){
     bool trouver=false;
@@ -206,6 +253,24 @@ bool SessionActuel::removeFromFileCurrent(std::string filePath){
         if(this->_filesCurrent.at(i)->egal(f)){
             trouver=true;
             this->_filesCurrent.erase(this->_filesCurrent.begin()+i);
+        }else{
+            ++i;
+        }
+    }
+    return trouver;
+}
+
+//Remove un file des file current 2 et return true si ça réussi
+bool SessionActuel::removeFromFileCurrent2(std::string filePath){
+    bool trouver = false;
+    int i=0;
+    File *f = new File("temporaire",filePath);
+
+
+    while((i<this->_filesCurrent2.size())&&(!trouver)){
+        if(this->_filesCurrent2.at(i)->egal(f)){
+            trouver=true;
+            this->_filesCurrent2.erase(this->_filesCurrent2.begin()+i);
         }else{
             ++i;
         }
