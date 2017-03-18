@@ -31,11 +31,11 @@ public:
     void setTags(std::vector<Tag*>& tags);
 
     bool addTag(Tag* tag);
-    void addTag(std::vector<Tag*> *tags);// Rajout plusieur tag en même temps
-    bool removeTag(std::string tagName);// Enlève un tag du fichier par son nom. Renvoit true le fichier avait ce tag
+    void addTag(std::vector<Tag*> *tags); // Rajoute plusieurs tags en même temps
+    bool removeTag(std::string tagName); // Enlève un tag du fichier par son nom. Renvoie true le fichier avait ce tag
     bool egal(File* file); // Même path = même file
 
-    std::string tagsToString();// Renvoi une string avec tout les noms des tags du fichier
+    std::string tagsToString(); // Renvoie une string avec tous les noms des tags du fichier
 
 };
 

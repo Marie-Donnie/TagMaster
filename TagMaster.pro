@@ -17,6 +17,7 @@ SOURCES += main.cpp\
     tag.cpp \
     file.cpp \
     fenprincipale.cpp \
+    sessionActuel.cpp \
     sessionActuel.cpp
 
 HEADERS  += mainwindow.h \

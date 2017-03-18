@@ -10,9 +10,9 @@ private :
     std::vector<Tag*> _tags;
     std::vector<File*> _files;
 
-    std::vector<Tag*> _tagsCurrent;// Tags actuellement séléctionner
-    std::vector<File*> _filesCurrent;//File actuellement séléctionner
-    std::vector<File*> _filesCurrent2;//File actuellement séléctionner 2
+    std::vector<Tag*> _tagsCurrent;// Tags actuellement sélectionné
+    std::vector<File*> _filesCurrent;//Fichier actuellement sélectionné
+    std::vector<File*> _filesCurrent2;//Fichier actuellement sélectionné 2
 
 public:
     SessionActuel();
@@ -32,31 +32,31 @@ public:
 
     // Return false si le tag existe déjà
     bool addTag(std::string tagName);
-    // Return false si le file existe déjà
+    // Return false si le fichier existe déjà
     bool addFile(std::string fileName, std::string fileAdress);
-    // Rajoute un file aux current files
+    // Rajoute un fichier aux fichiers courants
     bool addFileToCurrent(std::string fileName,std::string filePath);
-    // Rajoute un file aux current files 2
+    // Rajoute un fichier aux fichiers courants 2
     bool addFileToCurrent2(std::string fileName,std::string filePath);
-    // Rajoute un file aux current files 2
+    // Rajoute un fichier aux fichiers courants 2
     void addFileToCurrent2(File* f);
-    //Rajoute un au tag current, suppose que le tag est déjà dans la liste
+    //Rajoute un tag courant, suppose que le tag est déjà dans la liste
     void addTagToCurrent(std::string tagName);
-    //Enlève un tag de la liste de tag
+    //Enlève un tag de la liste de tags
     void removeTag(std::string tagName);
-    //Clear tag current
+    //Clear tag courant
     void clearTagsCurrent();
-    //Clear file current
+    //Clear fichier courant
     void clearFilesCurrent();
-    //Clear file current 2
+    //Clear fichier courant 2
     void clearFilesCurrent2();
-    //Get  tag by its name
+    //Renvoie un tag par son nom
     Tag* getTagByName(std::string tagName);
-    //Get file by its path
+    //Renvoie un fichier selon son chemin
     File* getFileByPath(std::string filePath);
-    //Remove un file des file current et return true si ça réussi
+    //Retire un fichier des fichiers courants et renvoie true si ça réussit
     bool removeFromFileCurrent(std::string filePath);
-    //Remove un file des file current et return true si ça réussi
+    //Retire un fichier des fichiers courants et renvoie true si ça réussit
     bool removeFromFileCurrent2(std::string filePath);
     // Rajoute les tagsCurrent aux filesCurrent
     void lieTagFile();

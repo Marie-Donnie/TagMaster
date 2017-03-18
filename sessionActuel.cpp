@@ -55,7 +55,7 @@ void SessionActuel::setTagsCurrent(std::vector<Tag *> &tags){
 
 //-----------Fonctions------------
 
-// Rajoute un file  à la liste
+// Rajoute un fichier à la liste
 bool SessionActuel::addTag(std::string tagName){
     bool pasTrouver=true;
     int i=0;
@@ -76,7 +76,7 @@ bool SessionActuel::addTag(std::string tagName){
     return pasTrouver;
 }
 
-//Rajoute un file à la liste
+//Rajoute un fichier à la liste
 bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
     bool pasTrouver=true;
     int i=0;
@@ -101,7 +101,7 @@ bool SessionActuel::addFile(std::string fileName, std::string fileAdress){
 }
 
 
-// Rajoute un file aux current files
+// Rajoute un fichier aux fichiers courants
 bool SessionActuel::addFileToCurrent(std::string fileName, std::string filePath){
     File * file= new File(fileName,filePath);
     bool pasTrouver=true;
@@ -111,8 +111,8 @@ bool SessionActuel::addFileToCurrent(std::string fileName, std::string filePath)
     while((i<this->_files.size())&&(pasTrouver)){
         if(file->egal(this->_files.at(i))){
             pasTrouver=false;
-            //Le file existe déjà dans notre liste on le prend et on le rajoute au current
-            //Si il n'est pas encore dedans
+            //Le fichier existe déjà dans notre liste ; on le prend et on le rajoute aux courants
+            //s'il n'est pas encore dedans
             for (int n=0;n<this->_filesCurrent.size();++n){
                 if(file->egal(this->_filesCurrent.at(n))){
                     pasDansCurrent=false;
@@ -127,15 +127,15 @@ bool SessionActuel::addFileToCurrent(std::string fileName, std::string filePath)
         }
     }
     if(pasTrouver){
-        //Le file n'était pas encore dans notre liste de file :
-        //on rajoute celui qu'on vient de  crée au current
+        //Le fichier n'était pas encore dans notre liste de fichiers :
+        //on rajoute celui qu'on vient de  crée aux fichiers courants
         this->_filesCurrent.push_back(file);
         this->_files.push_back(file);
     }
     return pasDansCurrent;
 }
 
-// Rajoute un file aux current files 2
+// Rajoute un fichier aux fichiers courants 2
 bool SessionActuel::addFileToCurrent2(std::string fileName, std::string filePath){
     File * file= new File(fileName,filePath);
     bool pasTrouver=true;
@@ -145,8 +145,8 @@ bool SessionActuel::addFileToCurrent2(std::string fileName, std::string filePath
     while((i<this->_files.size())&&(pasTrouver)){
         if(file->egal(this->_files.at(i))){
             pasTrouver=false;
-            //Le file existe déjà dans notre liste on le prend et on le rajoute au current
-            //Si il n'est pas encore dedans
+            //Le fichier existe déjà dans notre liste on le prend et on le rajoute aux courants
+            //s'il n'est pas encore dedans
             for (int n=0;n<this->_filesCurrent2.size();++n){
                 if(file->egal(this->_filesCurrent2.at(n))){
                     pasDansCurrent=false;
@@ -161,25 +161,25 @@ bool SessionActuel::addFileToCurrent2(std::string fileName, std::string filePath
         }
     }
     if(pasTrouver){
-        //Le file n'était pas encore dans notre liste de file :
-        //on rajoute celui qu'on vient de  crée au current
+        //Le fichier n'était pas encore dans notre liste de fichiers :
+        //on rajoute celui qu'on vient de  crée aux courants
         this->_filesCurrent2.push_back(file);
         this->_files.push_back(file);
     }
     return pasDansCurrent;
 }
 
-// Rajoute un file aux current files 2
+// Rajoute un fichier aux fichiers courants 2
 void SessionActuel::addFileToCurrent2(File *f){
     this->_filesCurrent2.push_back(f);
 }
 
-//Rajoute un au tag current, suppose que le tag est déjà dans la liste
+//Rajoute un au tag courant, supposant que le tag est déjà dans la liste
 void SessionActuel::addTagToCurrent(std::string tagName){
     int i=0;
     bool trouver=false;
 
-    //i-> normalement on dépasse pas du vector mais par sécurié on vérifie
+    //i-> normalement on ne dépasse pas du vector mais par sécurité on vérifie
     while((i<this->_tags.size())&&(!trouver)){
         if(this->_tags.at(i)->getTagName()==tagName){
             this->_tagsCurrent.push_back(this->_tags.at(i));
@@ -190,9 +190,9 @@ void SessionActuel::addTagToCurrent(std::string tagName){
     }
 }
 
-//Enlève un tag de la liste de tag
+//Enlève un tag de la liste de tags
 void SessionActuel::removeTag(std::string tagName){
-    this->_tagsCurrent.clear();//Par sécurité pour éviter d'avoir un tag supprimé encore dans les currents
+    this->_tagsCurrent.clear(); //Par sécurité pour éviter d'avoir un tag supprimé encore dans les courants
     for(int i=0;i<this->_tags.size();++i){
         if(this->_tags.at(i)->getTagName()==tagName){
             this->_tags.erase(this->_tags.begin()+i);
@@ -200,21 +200,21 @@ void SessionActuel::removeTag(std::string tagName){
     }
 }
 
-//Clear tag current
+//Clear tags courants
 void SessionActuel::clearTagsCurrent(){
     this->_tagsCurrent.clear();
 }
 
-//Clear file current
+//Clear fichiers courants
 void SessionActuel::clearFilesCurrent(){
     this->_filesCurrent.clear();
 }
 
-//Clear file current2
+//Clear fichiers courants 2
 void SessionActuel::clearFilesCurrent2(){
     this->_filesCurrent2.clear();
 }
-//Get  tag by his name
+//Renvoie un tag par son nom
 Tag* SessionActuel::getTagByName(std::string tagName){
     bool trouver=false;
     int i=0;
@@ -247,7 +247,7 @@ File* SessionActuel::getFileByPath(std::string filePath){
     return f;
 }
 
-//Remove un file des file current et return true si ça réussi
+//Retire un fichier des fichiers courants et renvoie true si ça réussit
 bool SessionActuel::removeFromFileCurrent(std::string filePath){
     bool trouver = false;
     int i=0;
@@ -265,7 +265,7 @@ bool SessionActuel::removeFromFileCurrent(std::string filePath){
     return trouver;
 }
 
-//Remove un file des file current 2 et return true si ça réussi
+//Remove un fichier des fichiers courants 2 et renvoie true si ça réussit
 bool SessionActuel::removeFromFileCurrent2(std::string filePath){
     bool trouver = false;
     int i=0;
@@ -293,6 +293,6 @@ void SessionActuel::lieTagFile(){
         this->_tagsCurrent.at(i)->addFile(&this->_filesCurrent);
     }
 
-    //On libère tag current après l'opération
+    //On libère les tags courant après l'opération
     this->_tagsCurrent.clear();
 }

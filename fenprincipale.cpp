@@ -13,7 +13,7 @@ FenPrincipale::FenPrincipale()
     //-----Partie sur la Gestion de fichier------------
     //-------------------------------------------------
 
-   // Les 2 liste du mode simple séléction
+   // Les 2 listes du mode sélection simple
     viewL = new QTableView();
     viewRH = new QTreeView();
     viewRB = new QTableView();
@@ -30,7 +30,7 @@ FenPrincipale::FenPrincipale()
     connect(viewRB, SIGNAL(pressed(const QModelIndex &)),this, SLOT(setIndex(const QModelIndex &)));
     connect(viewRB, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(menuFileSelectionRequested(QPoint)));
 
-    // Le model qui sert d'explorateur de fichier
+    // Le modèle qui sert d'explorateur de fichier
     modele = new QDirModel;
     modeleTag = new QStandardItemModel();
     modeleFileSelect = new QStandardItemModel();
@@ -47,7 +47,7 @@ FenPrincipale::FenPrincipale()
     viewRB->setModel(modeleFileSelect);
     viewL->setModel(modeleTag);
 
-     // Initialisation des bouton
+     // Initialisation des boutons
     modeTag= new QPushButton("Mode Gestion des Tags");
     mostUse= new QPushButton("Les plus utilisés");
     ordreLexico= new QPushButton("Ordre Lexicographique");
@@ -83,7 +83,7 @@ FenPrincipale::FenPrincipale()
     layoutLeft= new QGridLayout;
     layoutRight= new QGridLayout;
     layoutCentral = new QGridLayout; // Bloc avec Millieu Haut
-    layoutCentral2= new QGridLayout;// Bloc avec Mode multi Séléction
+    layoutCentral2= new QGridLayout;// Bloc avec Mode multi Sélection
 
     // Remplissage du layout left
     layoutLeft->addWidget(viewL,0,0);
@@ -140,16 +140,16 @@ FenPrincipale::FenPrincipale()
     connect(viewL_1, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(fileDuTag(QModelIndex)));
 
     //Initialisation des boutons
-    modeGestionFichier_1 = new QPushButton("Gestion de Fichier");
+    modeGestionFichier_1 = new QPushButton("Gestion de Fichiers");
     renommer_1 = new QPushButton("Renommer");
     fusionner_1 = new QPushButton("Fusionner");
     supprimer_1 = new QPushButton("Supprimer");
-    fichierAssocie_1 = new QPushButton("Fichiers associés aux tag");
+    fichierAssocie_1 = new QPushButton("Fichiers associés aux tags");
 
-    modeGestionFichier_1->setToolTip("Mode Pour Géré vos Fichiers");
-    renommer_1->setToolTip("Renomme le fichier séléctionné");
-    fusionner_1->setToolTip("Fusionne les tags séléctionné");
-    fichierAssocie_1->setToolTip(("Affiche les fichiers associé aux tags"));
+    modeGestionFichier_1->setToolTip("Mode pour gérer vos fichiers");
+    renommer_1->setToolTip("Renomme le fichier sélectionné");
+    fusionner_1->setToolTip("Fusionne les tags sélectionné");
+    fichierAssocie_1->setToolTip(("Affiche les fichiers associés aux tags"));
 
     QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
 
@@ -157,7 +157,7 @@ FenPrincipale::FenPrincipale()
     creeTag_1 = new QLineEdit;
 
     creeTag_1->setPlaceholderText("Crée tag");
-    creeTag->setToolTip("Appuyer sur entrer pour crée le tag");
+    creeTag->setToolTip("Appuyez sur entrée pour créer le tag");
 
     //Initialisation des layout
     layout_1 = new QGridLayout;
@@ -184,7 +184,7 @@ FenPrincipale::FenPrincipale()
     //-----------------------------
     //--------Partie Commune-------
     //-----------------------------
-    //Définition du layout comme zone central
+    //Définition du layout comme zone centrale
     zoneCentraleFileMode->setLayout(layout);
     zoneCentraleTagMode_1->setLayout(layout_1);
     mainLayout->insertWidget(0,zoneCentraleFileMode);
@@ -192,7 +192,7 @@ FenPrincipale::FenPrincipale()
     zoneCentrale->setLayout(mainLayout);
     mainLayout->setCurrentIndex(0);
 
-    //Zone central devient la zone central du widget
+    //Zone centrale devient la zone centrale du widget
     setCentralWidget(zoneCentrale);
 }
 
@@ -286,20 +286,20 @@ void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
 
     QPoint globalPos = viewRB->mapToGlobal(pos);
     QMenu myMenu;
-    myMenu.addAction("Retirer de la séléction");
+    myMenu.addAction("Retirer de la sélection");
     myMenu.addAction("Retirer un tag");
     QAction* selectedItem = myMenu.exec(globalPos);
 
     if(selectedItem){
-        //Récupération du text de l'action choisie
+        //Récupération du texte de l'action choisie
         QString qActionString =selectedItem->text();
         std::string actionString = qActionString.toStdString();
         int row = _index.row();
 
-        if (actionString=="Retirer de la séléction"){
+        if (actionString=="Retirer de la sélection"){
             if(_index.isValid()){
                 if(row<_session->getFilesCurrent().size()){// Evite sortie du vector
-                    // La row corespond à la position dans le vector filesCurrent du fichier
+                    // La rangée correspond à la position dans le vector filesCurrent du fichier
                     std::string filePath = _session->getFilesCurrent().at(row)-> getFileAdress();
                     _session->removeFromFileCurrent(filePath);
                     refreshFileSelect();
@@ -311,7 +311,7 @@ void FenPrincipale::menuFileSelectionRequested(const QPoint &pos){
                 if(row<_session->getFilesCurrent().size()){
                     std::string filePath = _session->getFilesCurrent().at(row)-> getFileAdress();
                     bool ok = false;
-                    QString qTagName = QInputDialog::getText(this, "Supression Tag du fichier", "Rentrer le nom du tag à retirer du fichier",
+                    QString qTagName = QInputDialog::getText(this, "Suppression Tag du fichier", "Rentrer le nom du tag à retirer du fichier",
                                                              QLineEdit::Normal, QString(), &ok);
                     if(ok && !qTagName.isEmpty()){
                         File* f = _session->getFileByPath(filePath);

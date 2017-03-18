@@ -62,7 +62,7 @@ bool File::addTag(Tag *tag){
     return pasTrouver;
 }
 
-//Rajoute plusieur tag au fichier
+//Rajoute plusieurs tags au fichier
 void File::addTag(std::vector<Tag *> *tags){
     for (int i=0;i<tags->size();++i){
         this->addTag(tags->at(i));
@@ -74,7 +74,7 @@ bool File::egal(File *file){
     return this->_fileAdress==file->getFileAdress();
 }
 
-// Enlève un tag du fichier par son nom. Renvoit true le fichier avait ce tag
+// Enlève un tag du fichier par son nom. Renvoie true si le fichier avait ce tag
 bool File::removeTag(std::string tagName){
     bool trouver = false;
     int i=0;
@@ -92,7 +92,7 @@ bool File::removeTag(std::string tagName){
     return trouver;
 }
 
-// Renvoi une string avec tout les noms des tags du fichier
+// Renvoie une string avec tous les noms des tags du fichier
 std::string File::tagsToString(){
     std::string listTags="";
 
