@@ -97,8 +97,8 @@ FenPrincipale::FenPrincipale()
     layoutRight->addWidget(viewRH,0,0,1,1);
     layoutRight->addWidget(viewRB,1,0,2,1);
     // Remplissage du layout centrale
-    layoutCentral->addWidget(mostUse,0,0);
-    layoutCentral->addWidget(ordreLexico,1,0);
+    layoutCentral->addWidget(mostUse,1,0,1,1);
+    layoutCentral->addWidget(ordreLexico,2,0);
     //layoutCentral->addWidget(associateFile,3,0,2,1);
     // Remplissage du layout centrale 2
     layoutCentral2->addWidget(clearSelection,0,0,2,1);
@@ -183,9 +183,9 @@ FenPrincipale::FenPrincipale()
     // Remplissage du layout right
     layoutRight_1->addWidget(viewR_1,0,0);
     // Remplissage du layout centrale
-    layoutCentral_1->addWidget(renommer_1,0,0);
-    layoutCentral_1->addWidget(fusionner_1,1,0);
-    layoutCentral_1->addWidget(supprimer_1,2,0);
+    layoutCentral_1->addWidget(renommer_1,1,0,2,1);
+    layoutCentral_1->addWidget(fusionner_1,3,0,2,1);
+    layoutCentral_1->addWidget(supprimer_1,7,0,4,1);
     //layoutCentral_1->addWidget(fichierAssocie_1,3,0);
    // Remplissage du layout principale
     layout_1->addWidget(creeTag_1,0,0);
