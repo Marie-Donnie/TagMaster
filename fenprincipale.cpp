@@ -70,7 +70,7 @@ FenPrincipale::FenPrincipale()
     ordreLexico->setToolTip("Trie les tags par ordre lexicographique");
     associateFile->setToolTip("Montre les fichiers associés au tag");
     multiSelection->setToolTip("Mode pour ajouter des Tags à plusieur fichier en même temps");
-    clearSelection->setToolTip("Retire les fichiers de la fenêtre de séléction");
+    clearSelection->setToolTip("ctrl+A : \n Retire les fichiers de la fenêtre de séléction");
 
     //Initialisation des lineEdit
     creeTag = new QLineEdit();
