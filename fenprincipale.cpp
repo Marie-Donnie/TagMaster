@@ -58,7 +58,7 @@ FenPrincipale::FenPrincipale()
     ordreLexico= new QPushButton("Trier les tags par\nordre alphabétique");
     associateFile = new QPushButton("Fichiers associés au tag");
     multiSelection= new QPushButton("Mode Multi Sélection");
-    clearSelection = new QPushButton("Retirer\n Sélection ->");
+    clearSelection = new QPushButton("Retirer\ntoute la sélection ->");
 
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
