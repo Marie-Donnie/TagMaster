@@ -71,7 +71,7 @@ private :
     QPushButton *ajouter;
     QPushButton *associateFile;
     QPushButton *multiSelection;
-    QPushButton *clearSelection; //Clear la liste de file séléctionnner
+    QPushButton *clearSelection; //Clear la liste de fichiers séléctionnnés
 
     QPushButton* modeGestionFichier_1;
     QPushButton* renommer_1;
@@ -94,7 +94,7 @@ private :
     QGridLayout *layoutLeft;
     QGridLayout *layoutRight;
     QGridLayout *layoutCentral; // Bloc avec Ajouter Tag(s)
-    QGridLayout *layoutCentral2;// Bloc avec Mode multi Séléction
+    QGridLayout *layoutCentral2;// Bloc avec Mode multi Sélection
 
     QGridLayout *layout_1;
     QGridLayout *layoutLeft_1;
@@ -115,66 +115,69 @@ public slots:
     */
      void addFileToSelection(const QModelIndex &index);
      /*! \fn void lieTagFile(const QModeIndex &index)
-         \brief Rajoute et
+         \brief Lie un tag à un fichier et vice-versa.
          \param index l'index Qt du tag à rajouter
      */
      void lieTagFile(const QModelIndex &index);
      /*! \fn void clearSelectionSignal()
-         \brief Quand signal reçu clear les files current et refresh l'affichage
+         \brief Quand un signal est reçu, retire la sélection des fichiers et raffraîchit l'affichage.
      */
      void clearSelectionSignal();
      /*! \fn void menuFileSelectionRequested(const QPoint &pos)
-         \brief prossède à l'ouverture du menue contextuel
+         \brief Procède à l'ouverture du menu contextuel.
          \param pos la position QPoint du curseur
      */
      void menuFileSelectionRequested(const QPoint &pos);
      /*! \fn void setIndex(const QModelIndex &indexPos)
-         \brief Règle l'index à l'index donné
+         \brief Règle l'index à l'index donné.
          \param index l'index QModel
      */
      void setIndex(const QModelIndex &indexPos);
      /*! \fn void switchMode()
-         \brief Permet de passer d'un mode à l'autre
+         \brief Permet de passer d'un mode à l'autre.
+         Permet de passer du mode gestion de fichiers au mode gestion de tags.
      */
      void switchMode();// Change d'un mode à l'autre
      // Remplie fileCurrent2 avec les file du tag double clické et met à jours l'affichage
      /*! \fn void fileDuTag(const QModelIndex &index)
-         \brief Affiche les fichiers liés au tag à l'index donné
+         \brief Affiche les fichiers liés au tag à l'index donné.
          \param index l'index QtModel du tag cliquer
      */
      void fileDuTag(const QModelIndex &index);
      /*! \fn void selectionTag(const QModelIndex &index)
-         \brief Rajoute un tag aux tag actuellement séléctionner.
-         Permet dans rajouter plusieur avec ctr+click
-         \param index l'index QtModel du tag cliquer
+         \brief Rajoute un tag aux tags actuellement sélectionnés.
+         \param index l'index QtModel du tag cliqué
+
+        Permet de rajouter plusieurs tags avec ctrl+clic.
      */
      void selectionTag(const QModelIndex &index);
      /*! \fn void slotRenommer()
-         \brief S'occuppe du renommage d'un tag une fois le signal reçu
-         \warning ne marche qui si 1 tag est séléctionner
+         \brief S'occupe du renommage d'un tag une fois le signal reçu.
+         \warning Ne fonctionne que si plusieurs tags sont sélectionnés.
      */
      void slotRenommer();
      /*! \fn void slotFusionner()
-         \brief S'occuppe de la fusion de plusieur tag
-         \warning ne marche qui si plus d'un tag est séléctionner et clear tag current
+         \brief S'occupe de la fusion de plusieurs tags.
+         \warning Ne fonctionne que si plusieurs tags sont sélectionnés et retire les tags de la sélection de tags.
      */
      void slotFusionner();
      /*! \fn void slotSupprimer()
-         \brief S'occuppe de la supression de plusieur tag
-         \warning ne marche qui si 1 ou plusieur tag sont séléctionner et clear tag current
+         \brief S'occupe de la supression de plusieurs tags.
+         \warning Ne fonctionne que si un ou plusieurs tags sont sélectionnés et retire les tags de la sélection de tags.
      */
      void slotSupprimer();
      /*! \fn void slotFichierDesTags()
-         \brief Affiche les fichiers ayant tout les tags ce trouvant actuellement dans tag current
-         \warning ne marche qui si 1 ou plusieur tag sont séléctionner et clear tag current
+         \brief Affiche les fichiers ayant tous les tags se trouvant actuellement dans tag current.
+         \warning Ne marche que si un ou plusieurs tags sont sélectionnés et retire les tags de la sélection de tags.
      */
      void slotFichierDesTags();
      /*! \fn void slotTrieCount()
-         \brief Trie les tag par le nombre de fichier
+         \brief Trie les tags par le nombre de fichier auxquels ils sont attribués.
      */
      void slotTrieCount();
      /*! \fn void slotTrieLexico()
-         \brief Trie les tag par ordre alphabétique
+         \brief Trie les tags par ordre alphabétique.
+         \warning L'ordre alphabétique est ici surtout l'ordre ascii des caractères.
      */
      void slotTrieLexico();
 
@@ -194,19 +197,19 @@ public:
     */
     void setSession( SessionActuel *session);
     /*! \fn void refreshFileSelect()
-        \brief Raffraichit la sélection des fichiers du mode gestion de fichier
+        \brief Raffraichit la sélection des fichiers du mode gestion de fichier.
     */
     void refreshFileSelect();
     /*! \fn void refreshModeleTag()
-        \brief refresh la liste de tag du mode gestion de fichier
+        \brief Raffraichit la liste de tags du mode gestion de fichiers.
     */
     void refreshModeleTag();
     /*! \fn void refreshModeleTag_1()
-        \brief refresh la liste de tag du mode gestion de Tag
+        \brief Raffraichit la liste de tags du mode gestion de tags.
     */
     void refreshModeleTag_1();
     /*! \fn void refreshFileSelect_1()
-        \brief refresh la liste des fichier du mode tag
+        \brief Raffraichit la liste des fichiers du mode tags.
     */
     void refreshFileSelect_1();
 

@@ -18,10 +18,14 @@ private:
     int _count;
 
 public:
+    /*! \fn Tag()
+        \brief Constructeur par défaut.
+        \return Tag : le tag créé
+    */
     Tag();
     /*! \fn Tag(std::string tagName)
-        \brief un second constructeur qui crée un tag avec le nom passer en paramètre
-        \return Tag : le tag crée
+        \brief Un second constructeur qui crée un tag avec le nom passé en paramètre.
+        \return Tag : le tag créé
     */
     Tag(std::string tagName);
     //Getters
@@ -32,12 +36,13 @@ public:
     std::string getTagName();
     /*! \fn std::vector<File*>& getFiles()
         \brief Accesseur de l'attribut _files de Tag.
-        \return  std::vector<File*>& : le pointeur vers la liste de file du tag
+        \return  std::vector<File*>& : le pointeur vers la liste de fichier du tag
+        L'attribut _files contient tous les fichiers auxquels est associé le tag.
     */
     std::vector<File*>& getFiles();
     /*! \fn int getCount()
         \brief Accesseur de l'attribut _count de Tag.
-        \return int : le nombre de file ayant ce tag
+        \return int : le nombre de fichiers ayant ce tag
     */
     int getCount();
 
@@ -48,31 +53,31 @@ public:
     */
     void setTagName(std::string tagName);
     /*! \fn void setFiles(std::vector<File*>& files)
-        \brief Règle la liste de file du tag.
-        \param std::vector<File*>& files : la nouvelle liste de file
+        \brief Règle la liste de fichiers du tag.
+        \param std::vector<File*>& files : la nouvelle liste de fichiers
     */
     void setFiles(std::vector<File*>& files);
     /*! \fn void setCount(int count)
-        \brief Règle le count du Tag
-        \param int count : le nouveau count du tag
+        \brief Règle l'attribut _count du Tag
+        \param int count : le nouveau compte du tag
     */
     void setCount(int count);
     /*! \fn void incrementCount(int files)
-        \brief Incrémente le count du Tag
-        \param int files : la valeur par la quel ont incrémente
+        \brief Incrémente l'attribut _count du Tag.
+        \param int files : la valeur par laquelle on incrémente
     */
     void incrementCount(int files);
     /*! \fn void decrementCount(int files)
-        \brief Décrémente le count du Tag
-        \param int files : la valeur par la quel ont décrémente
+        \brief Décrémente l'attribut _count du Tag.
+        \param int files : la valeur que l'on soustrait
     */
     void decrementCount(int files);
 
     /*! \fn bool getFile(std::string filePath, File  & file)
-        \brief Recupère le fichier de liste de fichier du tag via son path
+        \brief Recupère le fichier de liste de fichiers du tag via son chemin.
         \param std::string filePath : le path du fichier
-        \param  File  & file : on met le fichier trouver dedans
-        \return bool : return true si le fichier est trouver et return false sinon
+        \param  File  & file : on met le fichier trouvé dedans
+        \return bool : return true si le fichier est trouvé ; false sinon.
     */
     bool getFile(std::string filePath, File  & file);
     /*! \fn bool addFile(File *file)
@@ -93,26 +98,26 @@ public:
     */
     bool removeFile(std::string filePath);
     /*! \fn Tag* fusion(std::vector<Tag*> listTag, std::string newName)
-        \brief Fusione plusieur tag ensemble dans un nouveau tag
+        \brief Fusionne plusieurs tags ensemble dans un nouveau tag.
         \param std::vector<Tag*> listTag : les des fichiers à fusionner
         \param  std::string newName : le nom du nouveau tag résultant de la fusion
         \return Tag* : le tag résultant de la fusion
     */
     Tag* fusion(std::vector<Tag*> listTag, std::string newName);
     /*! \fn bool egal(Tag *tag)
-        \brief Fontion egal pour les tasgs .Même nom = même tag.
+        \brief Teste l'égalité de tags selon le principe même nom = même tag.
         \param Tag *tag : l'un des 2 tag à comparer
-        \return bool : Return true si les 2 tag ont le même nom. False Sinon.
+        \return bool : Return true si les deux tags ont le même nom. False Sinon.
     */
     bool egal(Tag *tag); // Même nom = même tag
     /*! \fn bool countCompare(Tag *t1, Tag *t2)
-        \brief Comparteur par count pour fonction sort sur les tags
+        \brief Comparateur par nombre de fichiers associés pour la fonction sort() sur les tags.
         \return bool : Return true si le premier tags a plus de fichier que le second. False sinon.
     */
     bool countCompare(Tag *t1, Tag *t2);
     /*! \fn  bool nameCompare(Tag *t1, Tag *t2)
-        \brief Comparteur par ordre alphabétique (ASCII) pour fonction sort sur les tags
-        \return bool : Return true si le premier tags est avant dans l'odre alphabétique (ASCII). False sinon.
+        \brief Comparateur par ordre alphabétique (ASCII) pour fonction sort() sur les tags.
+        \return bool : Return true si le premier tags est avant dans l'ordre ASCII. False sinon.
     */
     bool nameCompare(Tag *t1, Tag *t2);
 

@@ -26,17 +26,17 @@ public:
     File();
     File(std::string name, std::string adress);
     /*! \fn string getFileName()
-        \brief Renvoie le nom du fichier
+        \brief Renvoie le nom du fichier.
         \return Le nom du fichier
     */
     std::string getFileName();
     /*! \fn string getFileAdress()
-        \brief Renvoie l'adresse du fichier
+        \brief Renvoie l'adresse du fichier.
         \return L'adresse du fichier
     */
     std::string getFileAdress();
     /*! \fn vector<Tag*> getTags()
-        \brief Renvoie les tags associés au fichier
+        \brief Renvoie les tags associés au fichier.
         \return Les tags associés au fichier
     */
     std::vector<Tag*> getTags();
@@ -49,42 +49,43 @@ public:
     void setFileName(std::string fileName);
     /*! \fn void setFileAdress(std::string fileAdress)
         \brief Règle le path du fichier.
-        \param std::string fileAdress : le nouveau path du fichier
+        \param std::string fileAdress : le nouveau chemin du fichier
     */
     void setFileAdress(std::string fileAdress);
     /*! \fn void setTags(std::vector<Tag*>& tags)
-        \brief Règle les tags du fichiers
-        \param std::vector<Tag*>& tags : les nouveau tags du fichier
+        \brief Règle les tags du fichiers.
+        \param std::vector<Tag*>& tags : les nouveaux tags du fichier
     */
     void setTags(std::vector<Tag*>& tags);
+
     //-----Fonction-------------
 
     /*! \fn bool addTag(Tag* tag)
-        \brief ajoute un tag au fichier si il ne fait pas déjà partie des tags du fichier
+        \brief Ajoute un tag au fichier s'il ne fait pas déjà partie des tags du fichier.
         \param Tag* tag : le tag à rajouter
         \return bool : Return true si le fichier n'avait pas ce tag. False sinon.
     */
     bool addTag(Tag* tag);
     /*! \fn void addTag(std::vector<Tag*> *tags)
-        \brief ajoute un ou des tags au fichier. Rajoute ceux que le fichier n'avait pas.
+        \brief Ajoute un ou des tags au fichier. Rajoute ceux que le fichier n'avait pas.
         \param std::vector<Tag*> *tags : les tag à rajouter
     */
     void addTag(std::vector<Tag*> *tags);
     /*! \fn bool removeTag(std::string tagName)
-        \brief Enlève un tag du fichier via le nom du tag
+        \brief Enlève un tag du fichier via le nom du tag.
         \param std::string tagName : le nom du tag à enlever
         \return bool : Return false si le fichier n'avait pas ce tag. True sinon.
     */
     bool removeTag(std::string tagName);
     /*! \fn bool egal(File* file)
-        \brief Test l'égalité sur 2 file. Même path(adress) = même fichier
+        \brief Test l'égalité sur deux fichiers sur le principe de mêmes chemins (path) = mêmes fichiers
         \param File* file : l'un des files à tester
         \return bool : Return true si même path. False sinon.
     */
     bool egal(File* file);
 
     /*! \fn std::string tagsToString()
-        \brief Renvoie une string avec tous les noms des tags du fichier avec une virgule entre eux
+        \brief Renvoie une string avec tous les noms des tags du fichier séparés par des virgules
         \return std::string : la string structurer des nom des tags
     */
     std::string tagsToString(); // Renvoie une string avec tous les noms des tags du fichier
