@@ -27,23 +27,22 @@ FenPrincipale::FenPrincipale()
 
     viewRB->setContextMenuPolicy(Qt::CustomContextMenu);
 
-    viewL->setToolTip("Double clique pour rajouter rajouter un tag au fichier séléctionner");
-    viewRB->setToolTip("Indique les information sur les fichier actuellement séléctionner.\n Clique droit pour plus d'option");
-    viewRH->setToolTip("Double clique pour rajouter un fichier ou dossier à la séléction");
+    viewL->setToolTip("Double clic pour rajouter rajouter un tag au fichier sélectionné.");
+    viewRB->setToolTip("Indique les informations sur les fichiers actuellement sélectionnés.\n Clic droit pour plus d'options");
+    viewRH->setToolTip("Double clic pour rajouter un fichier ou dossier à la sélection");
 
     connect(viewL, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(lieTagFile(QModelIndex)));
     connect(viewRH, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(addFileToSelection(QModelIndex)));
     connect(viewRB, SIGNAL(pressed(const QModelIndex &)),this, SLOT(setIndex(const QModelIndex &)));
     connect(viewRB, SIGNAL(customContextMenuRequested(const QPoint&)),this, SLOT(menuFileSelectionRequested(QPoint)));
 
-    // Le modèle qui sert d'explorateur de fichier
+    // Le modèle qui sert d'explorateur de fichiers
     modele = new QDirModel;
     modeleTag = new QStandardItemModel();
     modeleFileSelect = new QStandardItemModel();
 
     modeleTag->setHorizontalHeaderItem(0, new QStandardItem("Nom") );
     modeleTag->setHorizontalHeaderItem(1, new QStandardItem("Nombre de fichiers"));
-
 
     modeleFileSelect->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
     modeleFileSelect->setHorizontalHeaderItem(1, new QStandardItem("Path"));
@@ -54,41 +53,41 @@ FenPrincipale::FenPrincipale()
     viewL->setModel(modeleTag);
 
      // Initialisation des boutons
-    modeTag= new QPushButton("Mode gestion \n de Tag");
-    mostUse= new QPushButton("Les plus \n utilisés");
-    ordreLexico= new QPushButton("Ordre \n Alphabétique");
-    associateFile = new QPushButton("Fichiers associé au tag");
-    multiSelection= new QPushButton("Mode Multi Séléction");
-    clearSelection = new QPushButton("Clear \n Séléction ->");
+    modeTag= new QPushButton("Mode gestion\nde tags");
+    mostUse= new QPushButton("Trier les tags par\nutilisation");
+    ordreLexico= new QPushButton("Trier les tags par\nordre alphabétique");
+    associateFile = new QPushButton("Fichiers associés au tag");
+    multiSelection= new QPushButton("Mode Multi Sélection");
+    clearSelection = new QPushButton("Retirer\n Sélection ->");
 
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
     QObject::connect(mostUse,SIGNAL(clicked()),this,SLOT(slotTrieCount()));
     QObject::connect(ordreLexico,SIGNAL(clicked()),this,SLOT(slotTrieLexico()));
 
-    modeTag->setToolTip("Passer au mode pour gérer vos Tags");
-    mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");
-    ordreLexico->setToolTip("Trie les tags par ordre lexicographique");
-    associateFile->setToolTip("Montre les fichiers associés au tag");
-    multiSelection->setToolTip("Mode pour ajouter des Tags à plusieur fichier en même temps");
+    modeTag->setToolTip("Passer au mode pour gérer vos tags");
+    mostUse->setToolTip("Trie les tags des plus ou moins utilisés");
+    ordreLexico->setToolTip("Trie les tags par ordre alphabétique");
+    associateFile->setToolTip("Liste les fichiers associés au tag");
+    multiSelection->setToolTip("Mode pour ajouter des tags à plusieurs fichiers en même temps");
     clearSelection->setToolTip("ctrl+A : \n Retire les fichiers de la fenêtre de séléction");
 
     //Initialisation des lineEdit
     creeTag = new QLineEdit();
     rechercheFile = new QLineEdit();
 
-    creeTag->setPlaceholderText("Crée tag");
+    creeTag->setPlaceholderText("Créer un tag");
     rechercheFile->setPlaceholderText("Rechercher");
 
-    creeTag->setToolTip("Appuyer sur entrer pour crée le tag");
-    rechercheFile->setToolTip("Appuyer sur entrer pour valider");
+    creeTag->setToolTip("Appuyer sur entrée pour créer le tag");
+    rechercheFile->setToolTip("Appuyer sur entrée pour valider");
 
     clearSelection->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
 
     QObject::connect(creeTag,SIGNAL(returnPressed()),this,SLOT(addTag()));
 
 
-    // Creation des layout du mode simple séléction
+    // Création des layout du mode simple sélection
     layout = new QGridLayout;
     layoutLeft= new QGridLayout;
     layoutRight= new QGridLayout;
@@ -129,8 +128,8 @@ FenPrincipale::FenPrincipale()
     viewL_1->setContextMenuPolicy(Qt::CustomContextMenu);
     viewR_1->setContextMenuPolicy(Qt::CustomContextMenu);
 
-    viewL_1->setToolTip("Double clique pour voir les fichier ayant le tag \n Clique gauche pour séléctionner 1 tag \n ctr+clique pour séléctionner plusieurs tags");
-    viewR_1->setToolTip("Affiche les fichiers ayant le ou les tags séléctionner \n Pas d'interaction possible");
+    viewL_1->setToolTip("Double clic pour voir les fichiers ayant ce tag. \n Clic gauche pour sélectionner un tag. \n ctrl+clic pour sélectionner plusieurs tags");
+    viewR_1->setToolTip("Affiche les fichiers ayant le ou les tags séléctionnés \n Pas d'interactions possible");
     //Les models-----------
 
     modeleTag_1 = new QStandardItemModel;
@@ -153,13 +152,13 @@ FenPrincipale::FenPrincipale()
     connect(viewL_1,SIGNAL(clicked(const QModelIndex &)), this, SLOT(selectionTag(QModelIndex)));
 
     //Initialisation des boutons
-    modeGestionFichier_1 = new QPushButton("Gestion de \n Fichiers");
-    renommer_1 = new QPushButton("Renommer \n ");
-    fusionner_1 = new QPushButton("Fusionner \n");
-    supprimer_1 = new QPushButton("Supprimer \n");
-    fichierAssocie_1 = new QPushButton("Fichiers associés \n aux tags");
-    mostUse_1= new QPushButton("Les plus \n utilisés");
-    ordreLexico_1= new QPushButton("Ordre \n Alphabétique");
+    modeGestionFichier_1 = new QPushButton("Gestion de\nFichiers");
+    renommer_1 = new QPushButton("Renommer\n ");
+    fusionner_1 = new QPushButton("Fusionner\n");
+    supprimer_1 = new QPushButton("Supprimer\n");
+    fichierAssocie_1 = new QPushButton("Fichiers associés\naux tags");
+    mostUse_1= new QPushButton("Trier les tags par\nutilisation");
+    ordreLexico_1= new QPushButton("Trier les tags par\nordre alphabétique");
 
     modeGestionFichier_1->setToolTip("Passer au mode pour gérer vos fichiers");
     renommer_1->setToolTip("Renomme le fichier sélectionné");
@@ -178,7 +177,7 @@ FenPrincipale::FenPrincipale()
     //Initialisation des lineEdit
     creeTag_1 = new QLineEdit;
 
-    creeTag_1->setPlaceholderText("Crée tag");
+    creeTag_1->setPlaceholderText("Créer tag");
     creeTag->setToolTip("Appuyez sur entrée pour créer le tag");
 
      QObject::connect(creeTag_1,SIGNAL(returnPressed()),this,SLOT(addTag()));
@@ -425,7 +424,7 @@ void FenPrincipale::slotRenommer(){
 
     if(_session->getTagsCurrent().size()==1){
             bool ok = false;
-            QString qTagName = QInputDialog::getText(this, "Renommer le Tag", "Rentrer le nouveau du tag",
+            QString qTagName = QInputDialog::getText(this, "Renommer le tag", "Rentrer le nom du nouveau du tag",
                                                  QLineEdit::Normal, QString(), &ok);
             if(ok){
                 std::string tagName = qTagName.toStdString();
@@ -443,18 +442,18 @@ void FenPrincipale::slotFusionner(){
     bool testDuplication = false;
     if(_session->getTagsCurrent().size()>1){
         bool ok = false;
-        QString qTagNewName = QInputDialog::getText(this, "Fusion de tag", "Rentrer le nom du tag résultant de la fusion",
+        QString qTagNewName = QInputDialog::getText(this, "Fusion de tags", "Rentrer le nom du tag résultant de la fusion",
                                                     QLineEdit::Normal, QString(), &ok);
         if(ok){
             std::string tagNewName = qTagNewName.toStdString();
             for (int i =0;i<_session->getTagsCurrent().size();++i){
                 if(_session->getTagsCurrent().at(i)->getTagName()==tagNewName){
-                    testDuplication=true; // Le tag résulant de la fusion a le même nom que un
+                    testDuplication=true; // Le tag résultant de la fusion a le même nom qu'un
                                           // des tags fusionner ce qu'on autorise
                 }
 
             }
-            if((!_session->existeTag(tagNewName))||(testDuplication)){// Evite 2 tag différent avant le même nom
+            if((!_session->existeTag(tagNewName))||(testDuplication)){// Evite 2 tag différents avant le même nom
                 _session->fusionTag(_session->getTagsCurrent(),tagNewName);
                 refreshModeleTag_1();
                 refreshModeleTag();
