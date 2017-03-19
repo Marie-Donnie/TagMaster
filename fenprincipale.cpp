@@ -56,14 +56,14 @@ FenPrincipale::FenPrincipale()
      // Initialisation des boutons
     modeTag= new QPushButton("Mode gestion \n de Tag");
     mostUse= new QPushButton("Les plus \n utilisés");
-    ordreLexico= new QPushButton("Ordre \n Lexicographique");
+    ordreLexico= new QPushButton("Ordre \n Alphabétique");
     associateFile = new QPushButton("Fichiers associé au tag");
     multiSelection= new QPushButton("Mode Multi Séléction");
     clearSelection = new QPushButton("Clear \n Séléction ->");
 
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
-
+    QObject::connect(ordreLexico,SIGNAL(clicked()),this,SLOT(switchMode()));
 
     modeTag->setToolTip("Passer au mode pour gérer vos Tags");
     mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");

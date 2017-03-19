@@ -139,3 +139,12 @@ Tag* Tag::fusion(std::vector<Tag *> listTag, std::string newName){
 bool Tag::egal(Tag *tag){
     return this->_tagName==tag->getTagName();
 }
+
+
+bool countCompare(Tag *t1, Tag *t2) {
+    return (t1->getCount() < t2->getCount());
+}
+
+bool nameCompare(Tag *t1, Tag *t2) {
+    return (t1->getTagName() < t2->getTagName());
+}

@@ -108,6 +108,8 @@ public:
 
 };
 
+bool countCompare(Tag *t1, Tag *t2);
+bool nameCompare(Tag *t1, Tag *t2);
 
 #endif // TAG
 
