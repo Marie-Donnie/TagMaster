@@ -119,7 +119,7 @@ bool Tag::removeFile(std::string filePath){
     return trouver;
 }
 
-//Fusione les tags dans un nouveau
+//Fusionne les tags dans un nouveau
 
 Tag* Tag::fusion(std::vector<Tag *> listTag, std::string newName){
     Tag *newTag = new Tag(newName);
