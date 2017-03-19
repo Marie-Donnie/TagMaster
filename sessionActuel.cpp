@@ -348,6 +348,15 @@ bool SessionActuel::existeTag(std::string tagName){
 
 }
 
+// Trie les tag par ordre lexicopgraphique
+void SessionActuel::trieTagCount(){
+   std::sort(_tags.begin(),_tags.end(),countCompare);
+}
+
+void SessionActuel::trieTagLexico(){
+   std::sort(_tags.begin(),_tags.end(),nameCompare);
+}
+
 // Rajoute les tagsCurrent aux filesCurrent
 void SessionActuel::lieTagFile(){
     for(int i=0;i<this->_filesCurrent.size();++i){

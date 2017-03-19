@@ -105,11 +105,20 @@ public:
         \return bool : Return true si les 2 tag ont le même nom. False Sinon.
     */
     bool egal(Tag *tag); // Même nom = même tag
+    /*! \fn bool countCompare(Tag *t1, Tag *t2)
+        \brief Comparteur par count pour fonction sort sur les tags
+        \return bool : Return true si le premier tags a plus de fichier que le second. False sinon.
+    */
+    bool countCompare(Tag *t1, Tag *t2);
+    /*! \fn  bool nameCompare(Tag *t1, Tag *t2)
+        \brief Comparteur par ordre alphabétique (ASCII) pour fonction sort sur les tags
+        \return bool : Return true si le premier tags est avant dans l'odre alphabétique (ASCII). False sinon.
+    */
+    bool nameCompare(Tag *t1, Tag *t2);
 
 };
 
-bool countCompare(Tag *t1, Tag *t2);
-bool nameCompare(Tag *t1, Tag *t2);
+
 
 #endif // TAG
 

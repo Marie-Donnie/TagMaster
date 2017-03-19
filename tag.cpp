@@ -142,8 +142,9 @@ bool Tag::egal(Tag *tag){
 
 
 bool countCompare(Tag *t1, Tag *t2) {
-    return (t1->getCount() < t2->getCount());
+    return (t1->getCount() > t2->getCount());
 }
+
 
 bool nameCompare(Tag *t1, Tag *t2) {
     return (t1->getTagName() < t2->getTagName());

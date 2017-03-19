@@ -63,7 +63,8 @@ FenPrincipale::FenPrincipale()
 
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
-    QObject::connect(ordreLexico,SIGNAL(clicked()),this,SLOT(switchMode()));
+    QObject::connect(mostUse,SIGNAL(clicked()),this,SLOT(slotTrieCount()));
+    QObject::connect(ordreLexico,SIGNAL(clicked()),this,SLOT(slotTrieLexico()));
 
     modeTag->setToolTip("Passer au mode pour gérer vos Tags");
     mostUse->setToolTip("Trie les tag(s) des plus ou moins utilisés");
@@ -157,6 +158,8 @@ FenPrincipale::FenPrincipale()
     fusionner_1 = new QPushButton("Fusionner \n");
     supprimer_1 = new QPushButton("Supprimer \n");
     fichierAssocie_1 = new QPushButton("Fichiers associés \n aux tags");
+    mostUse_1= new QPushButton("Les plus \n utilisés");
+    ordreLexico_1= new QPushButton("Ordre \n Alphabétique");
 
     modeGestionFichier_1->setToolTip("Passer au mode pour gérer vos fichiers");
     renommer_1->setToolTip("Renomme le fichier sélectionné");
@@ -168,6 +171,8 @@ FenPrincipale::FenPrincipale()
     QObject::connect(fusionner_1,SIGNAL(clicked()),this,SLOT(slotFusionner()));
     QObject::connect(supprimer_1,SIGNAL(clicked()),this,SLOT(slotSupprimer()));
     QObject::connect(fichierAssocie_1,SIGNAL(clicked()),this,SLOT(slotFichierDesTags()));
+    QObject::connect(mostUse_1,SIGNAL(clicked()),this,SLOT(slotTrieCount()));
+    QObject::connect(ordreLexico_1,SIGNAL(clicked()),this,SLOT(slotTrieLexico()));
 
 
     //Initialisation des lineEdit
@@ -193,6 +198,8 @@ FenPrincipale::FenPrincipale()
     layoutCentral_1->addWidget(fusionner_1,3,0,2,1);
     layoutCentral_1->addWidget(supprimer_1,7,0,2,1);
     layoutCentral_1->addWidget(fichierAssocie_1,9,0);
+    layoutCentral_1->addWidget(mostUse_1,10,0);
+    layoutCentral_1->addWidget(ordreLexico_1,11,0);
    // Remplissage du layout principale
     layout_1->addWidget(creeTag_1,0,0);
     layout_1-> addWidget(modeGestionFichier_1,0,1);
@@ -497,6 +504,19 @@ void FenPrincipale::slotFichierDesTags(){
         _session->clearTagsCurrent();
         refreshFileSelect_1();
     }
+}
+
+
+void FenPrincipale::slotTrieCount(){
+    _session->trieTagCount();
+    refreshModeleTag();
+    refreshModeleTag_1();
+}
+
+void FenPrincipale::slotTrieLexico(){
+    _session->trieTagLexico();
+    refreshModeleTag();
+    refreshModeleTag_1();
 }
 
 // ----Fonctions------

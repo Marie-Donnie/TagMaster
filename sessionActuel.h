@@ -3,6 +3,9 @@
 
 #include "file.h"
 #include "tag.h"
+#include <algorithm>    // std::sort
+
+
 
 
 /*! \class Tag
@@ -176,6 +179,14 @@ public:
         \warning clear les tags current
     */
     bool existeTag(std::string tagName);
+    /*! \fn void trieTagLexico()
+        \brief Trie les tags par odre alphabétique
+    */
+    void trieTagLexico();
+    /*! \fn void trieTagCount()
+        \brief Trie les tags par leurs nombre de fichier
+    */
+    void trieTagCount();
     /*! \fn bool existeTag(std::string tagName)
         \brief Rajoute les tagsCurrent aux filesCurrent et et vice versa. Les fichier on maitenant ces tag et
         les tags ces fichiers liant les 2 entres eux.

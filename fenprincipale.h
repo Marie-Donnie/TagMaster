@@ -78,6 +78,8 @@ private :
     QPushButton* fusionner_1;
     QPushButton* supprimer_1;
     QPushButton* fichierAssocie_1;
+    QPushButton* mostUse_1;
+    QPushButton* ordreLexico_1;
 
     //LineEdit
     QLineEdit* creeTag;
@@ -167,6 +169,14 @@ public slots:
          \warning ne marche qui si 1 ou plusieur tag sont séléctionner et clear tag current
      */
      void slotFichierDesTags();
+     /*! \fn void slotTrieCount()
+         \brief Trie les tag par le nombre de fichier
+     */
+     void slotTrieCount();
+     /*! \fn void slotTrieLexico()
+         \brief Trie les tag par ordre alphabétique
+     */
+     void slotTrieLexico();
 
 
 
