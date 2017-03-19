@@ -141,27 +141,32 @@ public slots:
          \param index l'index QtModel du tag cliquer
      */
      void fileDuTag(const QModelIndex &index);
-     /*! \fn void selectionTag(const QModelIndex &index);
+     /*! \fn void selectionTag(const QModelIndex &index)
          \brief Rajoute un tag aux tag actuellement séléctionner.
          Permet dans rajouter plusieur avec ctr+click
          \param index l'index QtModel du tag cliquer
      */
      void selectionTag(const QModelIndex &index);
-     /*! \fn void slotRenommer();
+     /*! \fn void slotRenommer()
          \brief S'occuppe du renommage d'un tag une fois le signal reçu
          \warning ne marche qui si 1 tag est séléctionner
      */
      void slotRenommer();
-     /*! \fn void slotFusionner();
+     /*! \fn void slotFusionner()
          \brief S'occuppe de la fusion de plusieur tag
-         \warning ne marche qui si plus d'un tag est séléctionner
+         \warning ne marche qui si plus d'un tag est séléctionner et clear tag current
      */
      void slotFusionner();
-     /*! \fn void slotSupprimer();
+     /*! \fn void slotSupprimer()
          \brief S'occuppe de la supression de plusieur tag
-         \warning ne marche qui si 1 ou plusieur tag sont séléctionner
+         \warning ne marche qui si 1 ou plusieur tag sont séléctionner et clear tag current
      */
      void slotSupprimer();
+     /*! \fn void slotFichierDesTags()
+         \brief Affiche les fichiers ayant tout les tags ce trouvant actuellement dans tag current
+         \warning ne marche qui si 1 ou plusieur tag sont séléctionner et clear tag current
+     */
+     void slotFichierDesTags();
 
 
 

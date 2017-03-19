@@ -54,12 +54,12 @@ FenPrincipale::FenPrincipale()
     viewL->setModel(modeleTag);
 
      // Initialisation des boutons
-    modeTag= new QPushButton("Mode gestion de Tag");
-    mostUse= new QPushButton("Les plus utilisés");
-    ordreLexico= new QPushButton("Ordre Lexicographique");
+    modeTag= new QPushButton("Mode gestion \n de Tag");
+    mostUse= new QPushButton("Les plus \n utilisés");
+    ordreLexico= new QPushButton("Ordre \n Lexicographique");
     associateFile = new QPushButton("Fichiers associé au tag");
     multiSelection= new QPushButton("Mode Multi Séléction");
-    clearSelection = new QPushButton("Clear Séléction ->");
+    clearSelection = new QPushButton("Clear \n Séléction ->");
 
     QObject::connect(modeTag,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(clearSelection,SIGNAL(clicked()),this,SLOT(clearSelectionSignal()));
@@ -81,6 +81,8 @@ FenPrincipale::FenPrincipale()
 
     creeTag->setToolTip("Appuyer sur entrer pour crée le tag");
     rechercheFile->setToolTip("Appuyer sur entrer pour valider");
+
+    clearSelection->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
 
     QObject::connect(creeTag,SIGNAL(returnPressed()),this,SLOT(addTag()));
 
@@ -126,6 +128,8 @@ FenPrincipale::FenPrincipale()
     viewL_1->setContextMenuPolicy(Qt::CustomContextMenu);
     viewR_1->setContextMenuPolicy(Qt::CustomContextMenu);
 
+    viewL_1->setToolTip("Double clique pour voir les fichier ayant le tag \n Clique gauche pour séléctionner 1 tag \n ctr+clique pour séléctionner plusieurs tags");
+    viewR_1->setToolTip("Affiche les fichiers ayant le ou les tags séléctionner \n Pas d'interaction possible");
     //Les models-----------
 
     modeleTag_1 = new QStandardItemModel;
@@ -148,21 +152,22 @@ FenPrincipale::FenPrincipale()
     connect(viewL_1,SIGNAL(clicked(const QModelIndex &)), this, SLOT(selectionTag(QModelIndex)));
 
     //Initialisation des boutons
-    modeGestionFichier_1 = new QPushButton("Gestion de Fichiers");
-    renommer_1 = new QPushButton("Renommer");
-    fusionner_1 = new QPushButton("Fusionner");
-    supprimer_1 = new QPushButton("Supprimer");
-    fichierAssocie_1 = new QPushButton("Fichiers associés aux tags");
+    modeGestionFichier_1 = new QPushButton("Gestion de \n Fichiers");
+    renommer_1 = new QPushButton("Renommer \n ");
+    fusionner_1 = new QPushButton("Fusionner \n");
+    supprimer_1 = new QPushButton("Supprimer \n");
+    fichierAssocie_1 = new QPushButton("Fichiers associés \n aux tags");
 
     modeGestionFichier_1->setToolTip("Passer au mode pour gérer vos fichiers");
     renommer_1->setToolTip("Renomme le fichier sélectionné");
     fusionner_1->setToolTip("Fusionne les tags sélectionné");
-    fichierAssocie_1->setToolTip(("Affiche les fichiers associés aux tags"));
+    fichierAssocie_1->setToolTip(("Affiche les fichiers associés aux tags séléctionner"));
 
     QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(renommer_1,SIGNAL(clicked()),this,SLOT(slotRenommer()));
     QObject::connect(fusionner_1,SIGNAL(clicked()),this,SLOT(slotFusionner()));
     QObject::connect(supprimer_1,SIGNAL(clicked()),this,SLOT(slotSupprimer()));
+    QObject::connect(fichierAssocie_1,SIGNAL(clicked()),this,SLOT(slotFichierDesTags()));
 
 
     //Initialisation des lineEdit
@@ -186,8 +191,8 @@ FenPrincipale::FenPrincipale()
     // Remplissage du layout centrale
     layoutCentral_1->addWidget(renommer_1,1,0,2,1);
     layoutCentral_1->addWidget(fusionner_1,3,0,2,1);
-    layoutCentral_1->addWidget(supprimer_1,7,0,4,1);
-    //layoutCentral_1->addWidget(fichierAssocie_1,3,0);
+    layoutCentral_1->addWidget(supprimer_1,7,0,2,1);
+    layoutCentral_1->addWidget(fichierAssocie_1,9,0);
    // Remplissage du layout principale
     layout_1->addWidget(creeTag_1,0,0);
     layout_1-> addWidget(modeGestionFichier_1,0,1);
@@ -424,6 +429,7 @@ void FenPrincipale::slotRenommer(){
                 }
             }
     }
+    _session->clearTagsCurrent();
 }
 
 void FenPrincipale::slotFusionner(){
@@ -463,6 +469,35 @@ void FenPrincipale::slotSupprimer(){
         }
 }
 
+void FenPrincipale::slotFichierDesTags(){
+    std::vector<Tag*> listTags = _session->getTagsCurrent();
+    if(listTags.size()>0){
+        std::vector<File*> listFiles = listTags.at(0)->getFiles();
+        int n=0;
+        for (int i=1;i<listTags.size();++i){
+            while(n<listFiles.size()){
+                std::vector<Tag*> tagsDuFichier = listFiles.at(n)->getTags();
+                int p=0;
+                bool ok=false;
+                while((p<tagsDuFichier.size())&&(!ok)){
+                    if(tagsDuFichier.at(p)->egal(listTags.at(i))){
+                        ok=true;
+                    }else{
+                        ++p;
+                    }
+                }
+                if(ok){
+                    ++n;
+                }else{
+                    listFiles.erase(listFiles.begin()+n);
+                }
+            }
+        }
+        _session->setFilesCurrent2(listFiles);
+        _session->clearTagsCurrent();
+        refreshFileSelect_1();
+    }
+}
 
 // ----Fonctions------
 
