@@ -104,7 +104,7 @@ FenPrincipale::FenPrincipale()
     layoutCentral->addWidget(ordreLexico,2,0);
     //layoutCentral->addWidget(associateFile,3,0,2,1);
     // Remplissage du layout centrale 2
-    layoutCentral2->addWidget(clearSelection,0,0,2,1);
+    layoutCentral2->addWidget(clearSelection,0,0,1,1);
     //layoutCentral2->addWidget(multiSelection,1,0);
     // Remplissage du layout principale
     layout->addWidget(creeTag,0,0);
@@ -314,7 +314,8 @@ void FenPrincipale::clearSelectionSignal(){
     _session->clearFilesCurrent();
 
     modeleFileSelect->setHorizontalHeaderItem(0, new QStandardItem("Fichier"));
-    modeleFileSelect->setHorizontalHeaderItem(1,new QStandardItem("Tags"));
+    modeleFileSelect->setHorizontalHeaderItem(1, new QStandardItem("Path"));
+    modeleFileSelect->setHorizontalHeaderItem(2,new QStandardItem("Tags"));
 }
 
 
