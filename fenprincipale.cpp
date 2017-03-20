@@ -65,7 +65,7 @@ FenPrincipale::FenPrincipale()
     QObject::connect(mostUse,SIGNAL(clicked()),this,SLOT(slotTrieCount()));
     QObject::connect(ordreLexico,SIGNAL(clicked()),this,SLOT(slotTrieLexico()));
 
-    modeTag->setToolTip("Passer au mode pour gérer vos tags");
+    modeTag->setToolTip("Passer au mode pour gérer vos tags. \n C'est dans ce mode que vous pouvez retrouver vos fichiers via leurs tags.");
     mostUse->setToolTip("Trie les tags des plus ou moins utilisés");
     ordreLexico->setToolTip("Trie les tags par ordre alphabétique");
     associateFile->setToolTip("Liste les fichiers associés au tag");
