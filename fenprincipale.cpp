@@ -436,6 +436,7 @@ void FenPrincipale::slotRenommer(){
                     _session->getTagsCurrent().at(0)->setTagName(tagName);
                     refreshModeleTag_1();
                     refreshModeleTag();
+                    refreshFileSelect_1();
                 }
             }
     }
