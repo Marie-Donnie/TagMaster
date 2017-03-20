@@ -27,7 +27,7 @@ FenPrincipale::FenPrincipale()
 
     viewRB->setContextMenuPolicy(Qt::CustomContextMenu);
 
-    viewL->setToolTip("Double clic pour rajouter rajouter un tag au fichier sélectionné.");
+    viewL->setToolTip("Double clic pour rajouter rajouter un tag au(x) fichier(s) sélectionné(s).");
     viewRB->setToolTip("Indique les informations sur les fichiers actuellement sélectionnés.\n Clic droit pour plus d'options");
     viewRH->setToolTip("Double clic pour rajouter un fichier ou dossier à la sélection");
 
@@ -161,9 +161,12 @@ FenPrincipale::FenPrincipale()
     ordreLexico_1= new QPushButton("Trier les tags par\nordre alphabétique");
 
     modeGestionFichier_1->setToolTip("Passer au mode pour gérer vos fichiers");
-    renommer_1->setToolTip("Renomme le fichier sélectionné");
+    renommer_1->setToolTip("Renomme le tag sélectionné");
     fusionner_1->setToolTip("Fusionne les tags sélectionné");
+    supprimer_1->setToolTip("Supprime le ou les tags sélectionnés");
     fichierAssocie_1->setToolTip(("Affiche les fichiers associés aux tags séléctionner"));
+    mostUse_1->setToolTip("Trie les tags des plus ou moins utilisés");
+    ordreLexico_1->setToolTip("Trie les tags par ordre alphabétique");
 
     QObject::connect(modeGestionFichier_1,SIGNAL(clicked()),this,SLOT(switchMode()));
     QObject::connect(renommer_1,SIGNAL(clicked()),this,SLOT(slotRenommer()));
@@ -177,8 +180,8 @@ FenPrincipale::FenPrincipale()
     //Initialisation des lineEdit
     creeTag_1 = new QLineEdit;
 
-    creeTag_1->setPlaceholderText("Créer tag");
-    creeTag->setToolTip("Appuyez sur entrée pour créer le tag");
+    creeTag_1->setPlaceholderText("Créer un tag");
+    creeTag_1->setToolTip("Appuyez sur entrée pour créer le tag");
 
      QObject::connect(creeTag_1,SIGNAL(returnPressed()),this,SLOT(addTag()));
 
@@ -193,12 +196,12 @@ FenPrincipale::FenPrincipale()
     // Remplissage du layout right
     layoutRight_1->addWidget(viewR_1,0,0);
     // Remplissage du layout centrale
-    layoutCentral_1->addWidget(renommer_1,1,0,2,1);
-    layoutCentral_1->addWidget(fusionner_1,3,0,2,1);
-    layoutCentral_1->addWidget(supprimer_1,7,0,2,1);
-    layoutCentral_1->addWidget(fichierAssocie_1,9,0);
-    layoutCentral_1->addWidget(mostUse_1,10,0);
-    layoutCentral_1->addWidget(ordreLexico_1,11,0);
+    layoutCentral_1->addWidget(renommer_1,2,0,1,1);
+    layoutCentral_1->addWidget(fusionner_1,3,0,1,1);
+    layoutCentral_1->addWidget(supprimer_1,4,0,1,1);
+    layoutCentral_1->addWidget(fichierAssocie_1,5,0);
+    layoutCentral_1->addWidget(mostUse_1,0,0);
+    layoutCentral_1->addWidget(ordreLexico_1,1,0);
    // Remplissage du layout principale
     layout_1->addWidget(creeTag_1,0,0);
     layout_1-> addWidget(modeGestionFichier_1,0,1);
